@@ -6,7 +6,13 @@ form {
 }
 
 label {
-    margin-top: 10px;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.sub-label {
+    font-size: 10px;
+    color: #9B8E73;
 }
 
 select, textarea, input {
@@ -14,9 +20,16 @@ select, textarea, input {
     flex-direction: column;
     margin-top: 10px;
     margin-bottom: 10px;
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 15px;
+    margin-right: 10px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .submit {
+    margin-top: 40px;
     margin-bottom: 20px;
     max-width: 65px;
     background-color: #F7B27D;

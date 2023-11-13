@@ -19,20 +19,26 @@ body{
   
   ul {
     list-style-type: none;
-    margin: 0;
+    margin-top: 0;
     padding: 0;
+    margin-left: 30px;
   }
   
   li {
     justify-content: right;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
   }
   
   a {
-    color: black;
+    color: black; 
+    font-size: 16px; 
+    font-family: Oswald; 
+    font-weight: 700; 
+    word-wrap: break-word;
     text-decoration: none;
   }
   
 a:hover {
-    background-color: #9B8E73;
+  color: #9B8E73;
+  text-decoration: underline;
 }
