@@ -1,6 +1,10 @@
-.AllRecipes-Container {
+.UserRecipes-Container {
     display: flex;
     justify-content: flex-start;
     /* flex-direction: row;
     flex-wrap: nowrap; */
+}
+
+.page-title {
+    text-align: center;
 }

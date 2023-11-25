@@ -7,14 +7,15 @@ body{
     /* width: 200px; */
     /* position: fixed; */
     min-height: 100vh;
-    min-width: 15vw;
+    min-width: 20vw;
     z-index: 1;
     top: 0;
     left: 0;
     background-color: #EFEBE7;
     overflow-x: hidden;
     padding-top: 20px;
-    justify-content: center;
+    text-align: center;
+
   }
   
   ul {
@@ -25,15 +26,15 @@ body{
   }
   
   li {
-    justify-content: right;
     margin-bottom: 25px;
+    margin-right: 50px;
   }
   
   a {
     color: black; 
-    font-size: 16px; 
+    font-size: 24px; 
     font-family: Oswald; 
-    font-weight: 700; 
+    font-weight: 200; 
     word-wrap: break-word;
     text-decoration: none;
   }

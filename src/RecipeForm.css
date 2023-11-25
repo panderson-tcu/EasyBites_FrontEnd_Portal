@@ -8,20 +8,31 @@ form {
 label {
     margin-top: 5px;
     font-weight: bold;
+    font-size: 20px;
 }
 
 .sub-label {
-    font-size: 10px;
+    font-size: 14px;
     color: #9B8E73;
 }
 
-select, textarea, input {
+select, textarea {
     display: flex;
     flex-direction: column;
     margin-top: 10px;
     margin-bottom: 10px;
     display: block;
-    width: 100%;
+    width: 50%;
+    border-radius: 5px;
+    font-size: 15px;
+    margin-right: 10px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+input {
+    /* display: flex; */
+    margin-top: 10px;
+    margin-bottom: 10px;
     border-radius: 5px;
     font-size: 15px;
     margin-right: 10px;
@@ -40,4 +51,8 @@ select, textarea, input {
     justify-content: flex-start;
     /* flex-direction: row;
     flex-wrap: nowrap; */
+}
+
+h1 {
+    text-align: center;
 }

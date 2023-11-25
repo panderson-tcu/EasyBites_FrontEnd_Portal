@@ -5,9 +5,9 @@ import NavBar from './components/NavBar';
 
 const ManageStudents = () => {
     return (
-    <>
+    <div className='ManageStudents-Container'>
         <NavBar />
-    </>
+    </div>
     )
     
 }
