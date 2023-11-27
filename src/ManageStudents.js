@@ -85,7 +85,8 @@ const ManageStudents = () => {
               onChange={handleChange}
             />
           </div>
-          <button type="submit" className='submit-button'>Add Student</button>
+          <button type="submit" className='button'>Add Student</button>
+          <button className='view-all-button' href="/AllStudents">View All Students</button>
         </form>
       </div>
     </div>
