@@ -1,51 +1,65 @@
 import React, { useState, useEffect } from 'react';
-import './UserRecipes.css';
+import './AllRecipes.css';
 import NavBar from './components/NavBar';
 
-const UserRecipes = () => {
+const AllRecipes = () => {
   const [recipes, setRecipes] = useState([]);
 
+  const baseUrl = 'http://localhost:80';
+
   useEffect(() => {
-    fetchRecipes();
+    fetchAllRecipes();
   }, []);
 
-  const fetchRecipes = () => {
-    fetch('http://localhost:80/recipes')
+  const fetchAllRecipes = () => {
+    fetch(baseUrl + "/recipes")
       .then(response => response.json())
       .then(data => {
-        if (Array.isArray(data)) {
-          setRecipes(data);
+        if (data && Array.isArray(data.data)) {
+          setRecipes(data.data);
         } else {
-          console.error('Data received is not an array:', data);
+          console.error('Data received does not contain an array:', data);
         }
       })
       .catch(error => console.error('Error fetching data:', error));
   };
 
+  const renderTableData = () => {
+    return recipes.map((recipe, index) => {
+      const { recipeId, title, status } = recipe;
+      return (
+        <tr key={recipeId}>
+          <td>{title}</td>
+          <td>{status}</td>
+        </tr>
+      );
+    });
+  };
+
+  const renderTableHeader = () => {
+    if (recipes.length === 0) {
+      return null;
+    }
+    return (
+      <tr>
+        <th>Title</th>
+        <th>Status</th>
+      </tr>
+    );
+  };
+
   return (
-    <div className='UserRecipes-Container'>
+    <div className='AllRecipes-Container'>
       <NavBar />
       <div className='container'>
-        <h1>Your Recipes</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>Recipe Title</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {recipes.map(recipe => (
-              <tr key={recipe.recipeId}>
-                <td>{recipe.title}</td>
-                <td>{recipe.status}</td>
-              </tr>
-            ))}
-          </tbody>
+        <h1 id='title'>My Recipe Table</h1>
+        <table id='recipes'>
+          <thead>{renderTableHeader()}</thead>
+          <tbody>{renderTableData()}</tbody>
         </table>
       </div>
     </div>
   );
 };
 
-export default UserRecipes;
+export default AllRecipes;

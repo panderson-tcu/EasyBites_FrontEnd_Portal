@@ -34,7 +34,7 @@
     width: 500px;
   }
   
-  .submit-button {
+  .button {
     padding: 10px 20px;
     border-radius: 5px;
     background-color: #F7B27D;
@@ -43,7 +43,19 @@
     width: 150px;
   }
   
-  .submit-button:hover {
+  .button:hover {
     background-color: #ffd5b6;
   }
   
+.view-all-button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #B7B9A4;
+  border: none;
+  cursor: pointer;
+  width: 150px;
+}
+
+.view-all-button:hover {
+  background-color: #9fa186;
+}

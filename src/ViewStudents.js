@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import './AllRecipes.css';
+import './ViewStudents.css';
 import NavBar from './components/NavBar';
 
-const AllRecipes = () => {
-  const [recipes, setRecipes] = useState([]);
+const ViewStudents = () => {
+  const [students, setStudents] = useState([]);
 
   const baseUrl = 'http://localhost:80';
 
   useEffect(() => {
-    fetchAllRecipes();
+    fetchAllNutritionUsers();
   }, []);
 
-  const fetchAllRecipes = () => {
-    fetch(baseUrl + "/recipes")
+  const fetchAllNutritionUsers = () => {
+    fetch(baseUrl + "/nutrition-user")
       .then(response => response.json())
       .then(data => {
         if (data && Array.isArray(data.data)) {
-          setRecipes(data.data);
+            setStudents(data.data);
         } else {
           console.error('Data received does not contain an array:', data);
         }
@@ -25,37 +25,39 @@ const AllRecipes = () => {
   };
 
   const renderTableData = () => {
-    return recipes.map((recipe, index) => {
-      const { recipeId, title, status, recipeOwner } = recipe;
+    return studnets.map((recipe, index) => {
+      const { nutritionUserId, firstName, lastName, email, adminLevel } = studnets;
       return (
-        <tr key={recipeId}>
-          <td>{title}</td>
-          <td>{status}</td>
-          <td>{recipeOwner ? recipeOwner.username : 'Unknown'}</td>
+        <tr key={nutritionUserId}>
+          <td>{firstName}</td>
+          <td>{lastName}</td>
+          <td>{email}</td>
+          <td>{adminLevel}</td>
         </tr>
       );
     });
   };
 
   const renderTableHeader = () => {
-    if (recipes.length === 0) {
+    if (studnets.length === 0) {
       return null;
     }
     return (
       <tr>
-        <th>Title</th>
-        <th>Status</th>
-        <th>Recipe Owner</th>
+        <th>First Name</th>
+        <th>Last name</th>
+        <th>Email</th>
+        <th>Admin Level</th>
       </tr>
     );
   };
 
   return (
-    <div className='AllRecipes-Container'>
+    <div className='allStudents-Container'>
       <NavBar />
       <div className='container'>
-        <h1 id='title'>All Recipe Table</h1>
-        <table id='recipes'>
+        <h1 id='title'>All Students </h1>
+        <table id='students'>
           <thead>{renderTableHeader()}</thead>
           <tbody>{renderTableData()}</tbody>
         </table>
@@ -64,4 +66,4 @@ const AllRecipes = () => {
   );
 };
 
-export default AllRecipes;
+export default ViewStudents;
