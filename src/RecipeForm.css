@@ -39,13 +39,6 @@ input {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-.submit {
-    margin-top: 40px;
-    margin-bottom: 20px;
-    max-width: 65px;
-    background-color: #F7B27D;
-}
-
 .RecipeForm-Container {
     display: flex;
     justify-content: flex-start;
@@ -56,3 +49,17 @@ input {
 h1 {
     text-align: center;
 }
+
+.submit {
+    padding: 8px 16px;
+    border-radius: 10px;
+    background-color: #F7B27D;
+    border: none;
+    cursor: pointer;
+    width: 100px;
+}
+
+.submit:hover {
+    background-color: #ffd5b6;
+  }
+  

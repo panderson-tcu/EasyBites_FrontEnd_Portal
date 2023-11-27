@@ -1,4 +1,3 @@
-// import React from 'react';
 import React, { useState } from 'react';
 import './RecipeForm.css';
 import NavBar from './components/NavBar';
@@ -21,12 +20,14 @@ const RecipeForm = () => {
       const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-          const response = await fetch('http://localhost:8080/Recipe', {
+          const response = await fetch('http://localhost:80/recipes', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formData),
+            body: JSON.stringify(handleSendData(formData)),
+            // body: JSON.stringify(formData),
+            
           });
     
           if (response.ok) {
@@ -42,8 +43,43 @@ const RecipeForm = () => {
           console.error('Error submitting recipe:', error);
         }
       };
+
+      const handleSendData = (formData) => {
+        // Format the data before sending
+        const formattedData = {
+          title: formData.title,
+          cooktime: parseInt(formData.cookTime),
+          ingredientsQuantity: formData.ingredientQuantity,
+          estimatedCost: parseFloat(formData.cost),
+          instructions: formData.instructions,
+          servings: parseInt(formData.servings),
+          status: null,
+          protein: {
+            proteinId: formData.protein,
+          },
+          recipeOwner: {
+            nutritionUserId: 110409760,
+          },
+          ingredients: formData.upcValues
+            .split('\n')
+            .map(upcValue => ({ upcValue })),
+          appliances: formData.appliances.map(appliance => ({
+            applianceId: appliance,
+          })),
+          allergens: formData.allergens.map(allergen => ({
+            allergenId: allergen,
+          })),
+          appUsers: [],
+        };
     
-      const handleCheckboxChange = (event) => {
+        // Now, send the formattedData to the server
+        // Your API call or fetch code goes here
+        console.log(formattedData); // For testing
+        return formattedData;
+      };
+    
+    
+      const handleCheckboxChangeAlrg = (event) => {
         const { name, checked } = event.target;
         setFormData((prevFormData) => ({
           ...prevFormData,
@@ -52,6 +88,17 @@ const RecipeForm = () => {
             : prevFormData.allergens.filter((item) => item !== name),
         }));
       };
+
+      const handleCheckboxChangeApli = (event) => {
+        const { name, checked } = event.target;
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          appliances: checked
+            ? [...prevFormData.appliances, name]
+            : prevFormData.appliances.filter((item) => item !== name),
+        }));
+      };
+    
     
       const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -61,7 +108,7 @@ const RecipeForm = () => {
         }));
       };
 
-    return (
+      return (
         <div className='RecipeForm-Container'>
             <NavBar />
             <div className='form-wrapper'>
@@ -81,70 +128,77 @@ const RecipeForm = () => {
                 <label className='sub-label'>
                     <input 
                         type='checkbox'
-                        name='milkAllergen'
-                        checked={formData.allergens.includes('milkAllergen')}
-                        onChange={handleCheckboxChange}></input> Milk <br />
+                        name='2000'
+                        checked={formData.allergens.includes('2000')}
+                        onChange={handleCheckboxChangeAlrg}></input> Milk <br />
                 </label>
                 <label className='sub-label'>
                     <input 
                         type='checkbox' 
-                        name='peanutsAllergen' 
-                        checked={formData.allergens.includes('peanutsAllergen')}
-                        onChange={handleCheckboxChange}></input> Peanuts <br />
+                        name='2001' 
+                        checked={formData.allergens.includes('2001')}
+                        onChange={handleCheckboxChangeAlrg}></input> Eggs <br />
                 </label>
                 <label className='sub-label'>
                     <input 
                         type='checkbox' 
-                        name='nutsAllergen' 
-                        checked={formData.allergens.includes('nutsAllergen')}
-                        onChange={handleCheckboxChange}></input> Tree Nuts <br />
+                        name='2002' 
+                        checked={formData.allergens.includes('2002')}
+                        onChange={handleCheckboxChangeAlrg}></input> Peanuts <br />
                 </label>
                 <label className='sub-label'>
                     <input 
                         type='checkbox' 
-                        name='soyAllergen'
-                        checked={formData.allergens.includes('soyAllergen')}
-                        onChange={handleCheckboxChange}></input> Soy <br />
+                        name='2003' 
+                        checked={formData.allergens.includes('2003')}
+                        onChange={handleCheckboxChangeAlrg}></input> Tree Nuts <br />
                 </label>
                 <label className='sub-label'>
                     <input 
                         type='checkbox' 
-                        name='eggAllergen' 
-                        checked={formData.allergens.includes('eggAllergen')}
-                        onChange={handleCheckboxChange}></input> Eggs <br />
+                        name='2004'
+                        checked={formData.allergens.includes('2004')}
+                        onChange={handleCheckboxChangeAlrg}></input> Soy <br />
                 </label>
                 <label className='sub-label'>
                     <input 
                         type='checkbox'
-                        name='wheatAllergen'
-                        checked={formData.allergens.includes('wheatAllergen')}
-                        onChange={handleCheckboxChange}></input> Wheat <br />
+                        name='2005'
+                        checked={formData.allergens.includes('2005')}
+                        onChange={handleCheckboxChangeAlrg}></input> Wheat <br />
                 </label>
                 <label className='sub-label'>
                     <input 
                         type='checkbox' 
-                        name='shellAllergen' 
-                        checked={formData.allergens.includes('shellAllergen')}
-                        onChange={handleCheckboxChange}></input> Shellfish <br />
+                        name='2006' 
+                        checked={formData.allergens.includes('2006')}
+                        onChange={handleCheckboxChangeAlrg}></input> Shellfish <br />
                 </label>
                 <label className='sub-label'>
                     <input 
                         type='checkbox' 
-                        name='fishAllergen' 
-                        checked={formData.allergens.includes('fishAllergen')}
-                        onChange={handleCheckboxChange}></input> Fish <br /> 
+                        name='2007' 
+                        checked={formData.allergens.includes('2007')}
+                        onChange={handleCheckboxChangeAlrg}></input> Fish <br /> 
+                </label>
+                <label className='sub-label'>
+                    <input 
+                        type='checkbox' 
+                        name='2008' 
+                        checked={formData.allergens.includes('2008')}
+                        onChange={handleCheckboxChangeAlrg}></input> None <br /> 
                 </label>
 
                 <label> Protein Options: <br />
                     <select name='protein'
                     value={formData.protein}
                     onChange={handleInputChange}>
-                        <option>Chicken</option>
-                        <option>Pork</option>
-                        <option>Beef</option>
-                        <option>Tofu</option>
-                        <option>Fish</option>
-                        <option>None</option>
+                        <option value="1005">None</option>
+                        <option value="1000">Chicken</option>
+                        <option value="1001">Beef</option>
+                        <option value="1002">Pork</option>
+                        <option value="1003">Seafood</option>
+                        <option value="1004">Tofu</option>
                     </select>
                 </label>
 
@@ -195,78 +249,142 @@ const RecipeForm = () => {
                     value={formData.cost}
                     onChange={handleInputChange}></textarea>      
                 </label>
-                <label htmlFor="multipleSelect"> Recipe Appliances:</label><label className='sub-label'>Please select all the appliances needed for this recipe. If there is an applying you think should be added, feel free to let us know! <br />
+
+                <label htmlFor="multipleSelect">Appliance Selection:</label>
+                <label className='sub-label'>
+                    <input 
+                        type='checkbox'
+                        name='3000'
+                        checked={formData.appliances.includes('3000')}
+                        onChange={handleCheckboxChangeApli}></input> Air fryer <br />
+                </label>
+                <label className='sub-label'>
+                    <input 
+                        type='checkbox' 
+                        name='3001' 
+                        checked={formData.appliances.includes('3001')}
+                        onChange={handleCheckboxChangeApli}></input> Crockpot <br />
+                </label>
+                <label className='sub-label'>
+                    <input 
+                        type='checkbox' 
+                        name='3002' 
+                        checked={formData.appliances.includes('3002')}
+                        onChange={handleCheckboxChangeApli}></input> Stove <br />
+                </label>
+                <label className='sub-label'>
+                    <input 
+                        type='checkbox' 
+                        name='3003' 
+                        checked={formData.appliances.includes('3003')}
+                        onChange={handleCheckboxChangeApli}></input> Oven <br />
+                </label>
+                <label className='sub-label'>
+                    <input 
+                        type='checkbox' 
+                        name='3004'
+                        checked={formData.appliances.includes('3004')}
+                        onChange={handleCheckboxChangeApli}></input> Microwave <br />
+                </label>
+                <label className='sub-label'>
+                    <input 
+                        type='checkbox'
+                        name='3005'
+                        checked={formData.appliances.includes('3005')}
+                        onChange={handleCheckboxChangeApli}></input> Blender <br />
+                </label>
+                <label className='sub-label'>
+                    <input 
+                        type='checkbox' 
+                        name='3006' 
+                        checked={formData.appliances.includes('3006')}
+                        onChange={handleCheckboxChangeApli}></input> Instant Pot <br />
+                </label>
+                <label className='sub-label'>
+                    <input 
+                        type='checkbox' 
+                        name='3007' 
+                        checked={formData.appliances.includes('3007')}
+                        onChange={handleCheckboxChangeApli}></input> None <br /> 
+                </label>
+            
+
+
+
+                {/* <label htmlFor="multipleSelect"> Recipe Appliances:</label><label className='sub-label'>Please select all the appliances needed for this recipe. If there is an applying you think should be added, feel free to let us know! <br />
                 <label htmlFor="airfryer" className='sub-label'>
                     <input
                     type='checkbox'
-                    name='appliances'
+                    name='3000'
                     value='airfryer'
-                    id='airfryer'
-                    onChange={handleCheckboxChange}
-                    />
+                    id='3000'
+                    onChange={handleCheckboxChange}/>
                     Air Fryer
                 </label><br />
                 <label htmlFor="crockpot" className='sub-label'>
                     <input
                     type='checkbox'
-                    name='appliances'
+                    name='3001'
                     value='crockpot'
-                    id='crockpot'
-                    onChange={handleCheckboxChange}
-                    />
+                    id='3001'
+                    onChange={handleCheckboxChange}/>
                     Crockpot
                 </label><br />
                 <label htmlFor="stove" className='sub-label'>
                     <input
                     type='checkbox'
-                    name='appliances'
+                    name='3002'
                     value='stove'
-                    id='stove'
-                    onChange={handleCheckboxChange}
-                    />
+                    id='3002'
+                    onChange={handleCheckboxChange}/>
                     Stove
                 </label><br />
                 <label htmlFor="oven" className='sub-label'>
                     <input
                     type='checkbox'
-                    name='appliances'
+                    name='3003'
                     value='oven'
-                    id='oven'
-                    onChange={handleCheckboxChange}
-                    />
+                    id='3003'
+                    onChange={handleCheckboxChange}/>
                     Oven
                 </label><br />
                 <label htmlFor="microwave" className='sub-label'>
                     <input
                     type='checkbox'
-                    name='appliances'
+                    name='3004'
                     value='microwave'
-                    id='microwave'
-                    onChange={handleCheckboxChange}
-                    />
+                    id='3004'
+                    onChange={handleCheckboxChange}/>
                     Microwave
                 </label><br />
                 <label htmlFor="blender" className='sub-label'>
                     <input
                     type='checkbox'
-                    name='appliances'
+                    name='3005'
                     value='blender'
-                    id='blender'
-                    onChange={handleCheckboxChange}
-                    />
+                    id='3005'
+                    onChange={handleCheckboxChange}/>
                     Blender
                 </label><br />
                 <label htmlFor="instantpot" className='sub-label'>
                     <input
                     type='checkbox'
-                    name='appliances'
+                    name='3006'
                     value='instantpot'
-                    id='instantpot'
-                    onChange={handleCheckboxChange}
-                    />
+                    id='3006'
+                    onChange={handleCheckboxChange}/>
                     Instant Pot
+                </label><br />
+                <label htmlFor="None" className='sub-label'>
+                    <input
+                    type='checkbox'
+                    name='3007'
+                    value='none'
+                    id='3007'
+                    onChange={handleCheckboxChange}/>
+                    None
                 </label>
-                </label>
+                </label> */}
     
                 <label>
                     Recipe Instructions: </label><label className='sub-label'>
@@ -286,13 +404,13 @@ const RecipeForm = () => {
                     name='servings'
                     value={formData.servings}
                     onChange={handleInputChange}>
-                        <option value="serv"></option>
-                        <option value="serv1">1</option>
-                        <option value="serv2">2</option>
-                        <option value="serv3">3</option>
-                        <option value="serv4">4</option>
-                        <option value="serv5">5</option>
-                        <option value="serv6">6</option>
+                        <option value="">Slect One</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
                     </select>
                 </label>
                 <input className='submit' type="submit" value="Submit" />

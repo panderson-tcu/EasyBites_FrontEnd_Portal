@@ -1,10 +1,16 @@
 .UserRecipes-Container {
     display: flex;
     justify-content: flex-start;
-    /* flex-direction: row;
-    flex-wrap: nowrap; */
 }
 
-.page-title {
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    width: 100%;
+
+}
+
+h1 {
     text-align: center;
 }

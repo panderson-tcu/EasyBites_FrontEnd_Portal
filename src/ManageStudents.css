@@ -3,4 +3,47 @@
     justify-content: flex-start;
     /* flex-direction: row;
     flex-wrap: nowrap; */
-}
+} 
+
+.conatiner {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    width: 100%;
+} 
+ 
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-bottom: 5px;
+  }
+  
+  input[type='text'] {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 500px;
+  }
+  
+  .submit-button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #F7B27D;
+    border: none;
+    cursor: pointer;
+    width: 150px;
+  }
+  
+  .submit-button:hover {
+    background-color: #ffd5b6;
+  }
+  
