@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import Navigate
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'; // Import Navigate
 import React, { useState } from 'react';
 import RecipeForm from './RecipeForm.js';
 import AllRecipes from './AllRecipes.js';
@@ -8,15 +8,22 @@ import ManageStudents from './ManageStudents.js';
 import Login from './Login';
 
 const App = () => {
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
 
   return (
     <Router>
       <Routes>
-        <Route path='/login' element={<Login />} />
+        <Route 
+          path='/login' 
+          element={<Login onLogin={handleLogin} />}
+        />
         <Route
           path='/'
-          // element={isLoggedIn ? <UserRecipes /> : <Navigate to="/login" />} // Use Navigate
+          element={isLoggedIn ? <AllRecipes /> : <Navigate to="/login" />}
         />
         <Route path='/RecipeForm' element={<RecipeForm />} />
         <Route path='/AllRecipes' element={<AllRecipes />} />
