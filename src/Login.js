@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Login.css';
 
-const Login = () => {
+const Login = ({ onLogin } ) => {
   const [loginData, setLoginData] = useState({
     username: '',
     password: '',
@@ -13,24 +13,22 @@ const Login = () => {
       const response = await fetch('http://localhost:80/nutrition-user/login', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          Authorization: 'Basic ' + btoa(`${loginData.username}:${loginData.password}`)
         },
-        body: JSON.stringify(loginData),        
-      });
-
-      if (response.ok) {
-        console.log('Login successful!');
-      } else {
-        console.error(
-          'Failed to submit recipe:',
-          response.status,
-          response.statusText
-        );
       }
+      );
+
+      const data = await response.json();
+      console.log('Success: ', data);
+      // Do something with the successful response data
+
+      onLogin();
+
     } catch (error) {
-      console.error('Error Logging in: ', error);
+      console.log(error);
+      // Handle any errors that occurred during the fetch or processing of the response
     }
-  };
+  }; // <- Add a closing parenthesis here
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -39,7 +37,6 @@ const Login = () => {
       [name]: value,
     });
   };
-
 
   return (
     <div className="login-container">
@@ -65,7 +62,7 @@ const Login = () => {
             onChange={handleInputChange}
           />
         </div>
-        <button type="submit" className="login-button">
+        <button type="submit" className="login-button" onClick={handleLogin}>
           Login
         </button>
       </form>
