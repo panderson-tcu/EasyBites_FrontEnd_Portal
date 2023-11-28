@@ -16,6 +16,8 @@ const RecipeForm = () => {
         instructions: '',
         servings: '',
       });
+
+      const [submitted, setSubmitted] = useState(false);
     
       const handleSubmit = async (event) => {
         event.preventDefault();
@@ -32,7 +34,23 @@ const RecipeForm = () => {
     
           if (response.ok) {
             console.log('Recipe submitted successfully!');
-          } else {
+            setSubmitted(true); // Set submitted to true to display the success banner
+            setFormData({ // Reset the form after submission
+                title: '',
+                allergens: [],
+                protein: '',
+                cookTime: '',
+                ingredientQuantity: '',
+                upcValues: '',
+                cost: '',
+                appliances: [],
+                instructions: '',
+                servings: '',
+            });
+            setTimeout(() => {
+                setSubmitted(false);
+              }, 3000);
+        } else {
             console.error(
               'Failed to submit recipe:',
               response.status,
@@ -111,9 +129,12 @@ const RecipeForm = () => {
       return (
         <div className='RecipeForm-Container'>
             <NavBar />
-            <div className='form-wrapper'>
+            <div className='form'>
                 <h1 className='page-title'> Easy Bites Recipe Submission</h1>
-            <form onSubmit={handleSubmit}>
+                {/* {submitted && (
+                    <div className='success-banner'>Recipe submitted successfully!</div>
+                     )}             */}
+                <form onSubmit={handleSubmit}>
                 <label>
                     Recipe Name: <br/>
                     <input 
@@ -307,85 +328,6 @@ const RecipeForm = () => {
                         checked={formData.appliances.includes('3007')}
                         onChange={handleCheckboxChangeApli}></input> None <br /> 
                 </label>
-            
-
-
-
-                {/* <label htmlFor="multipleSelect"> Recipe Appliances:</label><label className='sub-label'>Please select all the appliances needed for this recipe. If there is an applying you think should be added, feel free to let us know! <br />
-                <label htmlFor="airfryer" className='sub-label'>
-                    <input
-                    type='checkbox'
-                    name='3000'
-                    value='airfryer'
-                    id='3000'
-                    onChange={handleCheckboxChange}/>
-                    Air Fryer
-                </label><br />
-                <label htmlFor="crockpot" className='sub-label'>
-                    <input
-                    type='checkbox'
-                    name='3001'
-                    value='crockpot'
-                    id='3001'
-                    onChange={handleCheckboxChange}/>
-                    Crockpot
-                </label><br />
-                <label htmlFor="stove" className='sub-label'>
-                    <input
-                    type='checkbox'
-                    name='3002'
-                    value='stove'
-                    id='3002'
-                    onChange={handleCheckboxChange}/>
-                    Stove
-                </label><br />
-                <label htmlFor="oven" className='sub-label'>
-                    <input
-                    type='checkbox'
-                    name='3003'
-                    value='oven'
-                    id='3003'
-                    onChange={handleCheckboxChange}/>
-                    Oven
-                </label><br />
-                <label htmlFor="microwave" className='sub-label'>
-                    <input
-                    type='checkbox'
-                    name='3004'
-                    value='microwave'
-                    id='3004'
-                    onChange={handleCheckboxChange}/>
-                    Microwave
-                </label><br />
-                <label htmlFor="blender" className='sub-label'>
-                    <input
-                    type='checkbox'
-                    name='3005'
-                    value='blender'
-                    id='3005'
-                    onChange={handleCheckboxChange}/>
-                    Blender
-                </label><br />
-                <label htmlFor="instantpot" className='sub-label'>
-                    <input
-                    type='checkbox'
-                    name='3006'
-                    value='instantpot'
-                    id='3006'
-                    onChange={handleCheckboxChange}/>
-                    Instant Pot
-                </label><br />
-                <label htmlFor="None" className='sub-label'>
-                    <input
-                    type='checkbox'
-                    name='3007'
-                    value='none'
-                    id='3007'
-                    onChange={handleCheckboxChange}/>
-                    None
-                </label>
-                </label> */}
-    
                 <label>
                     Recipe Instructions: </label><label className='sub-label'>
                     Please end each step with a '.' (full stop). Each step should go in a separate line.<br/>
@@ -414,6 +356,9 @@ const RecipeForm = () => {
                     </select>
                 </label>
                 <input className='submit' type="submit" value="Submit" />
+                {submitted && (
+                    <div className='success-banner'>Recipe submitted successfully!</div>
+                     )}   
             </form>
             </div>
         </div>  

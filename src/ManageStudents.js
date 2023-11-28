@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './ManageStudents.css';
 import NavBar from './components/NavBar';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+
 
 const ManageStudents = () => {
   const [userData, setUserData] = useState({
@@ -43,7 +45,7 @@ const ManageStudents = () => {
     <div className='ManageStudents-Container'>
       <NavBar />
       <div className='conatiner'>
-        <h2>Add Student Account</h2>
+        <h1>Add Student Account</h1>
         <form onSubmit={handleSubmit} className='form'>
         <div className='form-group'>
             <label htmlFor="firstName">First Name:</label>
@@ -86,7 +88,7 @@ const ManageStudents = () => {
             />
           </div>
           <button type="submit" className='button'>Add Student</button>
-          <button className='view-all-button' href="/AllStudents">View All Students</button>
+          <Link to="/ViewStudents" className='view-all-button'>View All Students</Link>
         </form>
       </div>
     </div>

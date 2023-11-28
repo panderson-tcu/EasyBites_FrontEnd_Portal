@@ -5,6 +5,7 @@
     flex-wrap: nowrap; */
 } 
 
+
 .conatiner {
     display: flex;
     flex-direction: column;
@@ -41,6 +42,9 @@
     border: none;
     cursor: pointer;
     width: 150px;
+    font-size: 16px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
   }
   
   .button:hover {
@@ -48,14 +52,20 @@
   }
   
 .view-all-button {
-  padding: 10px 20px;
+  padding: 10px 30px;
   border-radius: 5px;
-  background-color: #B7B9A4;
+  background-color: #9fa186;
   border: none;
   cursor: pointer;
-  width: 150px;
+  max-width: 150px;
+  font-size: 16px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  margin-top: 50px;
+  text-align: center;
 }
 
 .view-all-button:hover {
-  background-color: #9fa186;
+  background-color: #B7B9A4;
+  text-decoration: none;
+  color: #000000;
 }

@@ -25,8 +25,8 @@ const ViewStudents = () => {
   };
 
   const renderTableData = () => {
-    return studnets.map((recipe, index) => {
-      const { nutritionUserId, firstName, lastName, email, adminLevel } = studnets;
+    return students.map((student) => {
+      const { nutritionUserId, firstName, lastName, email, adminLevel } = student;
       return (
         <tr key={nutritionUserId}>
           <td>{firstName}</td>
@@ -39,7 +39,7 @@ const ViewStudents = () => {
   };
 
   const renderTableHeader = () => {
-    if (studnets.length === 0) {
+    if (students.length === 0) {
       return null;
     }
     return (
