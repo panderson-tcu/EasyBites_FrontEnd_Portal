@@ -1,26 +1,28 @@
-import { useRef, useState, useEffect, useContext } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import './Login.css'
-import AuthContext from './context/AuthProvider';
 import axios from './api/axios';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { Link, useNavigate, useLocation } from 'react-router-dom'; 
 import AllRecipes from './AllRecipes';
-
+import useAuth from './hooks/useAuth';
 
 
 
 const LOGIN_URL = '/nutrition-user/login';
 
 const Login = () => {
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/AllRecipes"; //get where user came from or AllRecipes which is default home page
+
   const userRef = useRef();
   const errRef = useRef();
     // Use useNavigate to get the navigation function
-    const navigate = useNavigate();
 
   const [user, setUser] = useState('');
   const [pwd, setPwd] = useState('');
   const [errMsg, setErrMsg] = useState('');
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     setErrMsg('');
@@ -41,14 +43,16 @@ const Login = () => {
           }
         }
       );
-      console.log(JSON.stringify(response?.data))
-      // console.log(JSON.stringify(response))
-      const accessToken = response?.data?.accessToken;
-      const roles = response?.data?.roles;
+      console.log('response ' + JSON.stringify(response?.data));
+
+      const accessToken = response?.data?.data?.token;
+      const adminLevel = response?.data?.data?.userInfo?.adminLevel;
+      const roles = adminLevel ? [adminLevel] : [];
+
       setAuth({ user, pwd, roles, accessToken });
       setUser('');
       setPwd('');
-      setSuccess(true);
+      navigate(from, { replace: true }); 
     } catch (err) {
         if(!err?.response) {
           setErrMsg('No server response');
@@ -63,45 +67,39 @@ const Login = () => {
     }
   }
   
-  return (
-    <>
-      {success ? (
-        navigate('/AllRecipes')
-      ) : (
-      <div className="login-container">
-        <h1>Login</h1>
-        <form onSubmit={handleLogin} className="login-form">
-          <div>
-            <label htmlFor="username">Username:</label> <br />
-            <input
-              type="text"
-              id="username"
-              name="username"
-              ref={userRef}
-              value={user}
-              onChange={(e) => setUser(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="password">Password:</label> <br />
-            <input
-              type="password"
-              id="password"
-              name="password"
-              onChange={(e) => setPwd(e.target.value)}
-              value={pwd}
-              required
-            />
-          </div>
-          <button type="submit" className="login-button">
-            Login
-          </button>
-        </form>
-        <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-      </div>
-        )}
-    </>
+  return (  
+    <div className="login-container">
+      <h1>Login</h1>
+      <form onSubmit={handleLogin} className="login-form">
+        <div>
+          <label htmlFor="username">Username:</label> <br />
+          <input
+            type="text"
+            id="username"
+            name="username"
+            ref={userRef}
+            value={user}
+            onChange={(e) => setUser(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Password:</label> <br />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            onChange={(e) => setPwd(e.target.value)}
+            value={pwd}
+            required
+          />
+        </div>
+        <button type="submit" className="login-button">
+          Login
+        </button>
+      </form>
+      <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+    </div>
   )
 }
 
