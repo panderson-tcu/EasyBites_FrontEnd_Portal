@@ -43,3 +43,8 @@ a:hover {
   color: #9B8E73;
   text-decoration: underline;
 }
+
+.image {
+  max-width: '50px';
+  max-height: '50px'
+}

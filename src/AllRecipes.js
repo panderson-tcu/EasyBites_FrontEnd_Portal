@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './AllRecipes.css';
+import { Link } from 'react-router-dom';
 import NavBar from './components/NavBar';
 
 const AllRecipes = () => {
@@ -29,7 +30,9 @@ const AllRecipes = () => {
       const { recipeId, title, status, recipeOwner } = recipe;
       return (
         <tr key={recipeId}>
-          <td>{title}</td>
+          <td>
+          <Link to={`/recipe/${recipe.recipeId}`}>{recipe.title}</Link>
+          </td>
           <td>{status}</td>
           <td>{recipeOwner ? recipeOwner.username : 'Unknown'}</td>
         </tr>

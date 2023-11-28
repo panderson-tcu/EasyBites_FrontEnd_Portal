@@ -45,7 +45,7 @@ const RecipeDetails = () => {
       <h2>{recipe.title}</h2>
       <p>Cook Time: {recipe.cookTime} minutes</p>
       <p>Ingredients: {recipe.ingredientsQuantity}</p>
-      <p>Estimated Cost: ${recipe.estimatedCost.toFixed(2)}</p>
+      <p>Estimated Cost: ${recipe.estimatedCost}</p>
       <p>Instructions: {recipe.instructions}</p>
       <p>Servings: {recipe.servings}</p>
       <p>Protein: {recipe.protein.name}</p>

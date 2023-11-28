@@ -2,7 +2,15 @@ form {
     display: flex;
     flex-direction: column;
     margin: 10px;
+    margin-bottom: 100px;
     /* position: absolute; */
+}
+
+.RecipeForm-Container {
+    display: flex;
+    justify-content: flex-start;
+    /* flex-direction: row;
+    flex-wrap: nowrap; */
 }
 
 label {
@@ -39,12 +47,6 @@ input {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-.RecipeForm-Container {
-    display: flex;
-    justify-content: flex-start;
-    /* flex-direction: row;
-    flex-wrap: nowrap; */
-}
 
 h1 {
     text-align: center;
@@ -61,5 +63,12 @@ h1 {
 
 .submit:hover {
     background-color: #ffd5b6;
-  }
+}
   
+.success-banner {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
