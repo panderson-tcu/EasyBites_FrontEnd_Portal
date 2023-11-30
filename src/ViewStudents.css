@@ -46,3 +46,24 @@ h1 {
     background-color: #EFEBE7;
     color: black;
   }
+
+  .manage-button {
+    margin-top: 50px;
+    padding: 10px 30px;
+    border-radius: 5px;
+    background-color: #9fa186;
+    border: none;
+    cursor: pointer;
+    width: fit-content;
+    font-size: 16px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-top: 50px;
+    text-align: center;
+  }
+  
+  .manage-button:hover {
+    background-color: #B7B9A4;
+    text-decoration: none;
+    color: #000000;
+  }
+  

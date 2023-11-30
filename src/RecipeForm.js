@@ -76,7 +76,7 @@ const RecipeForm = () => {
             proteinId: formData.protein,
           },
           recipeOwner: {
-            nutritionUserId: 110409760,
+            nutritionUserId: 110400159,
           },
           ingredients: formData.upcValues
             .split('\n')
@@ -146,6 +146,7 @@ const RecipeForm = () => {
                 </label>
                
                 <label htmlFor="multipleSelect">Allergren Options:</label>
+                <label className='sub-label'>Select all allergens that are in the Recipe <br /> ex. Pasta conatinas wheat so select wheat</label>
                 <label className='sub-label'>
                     <input 
                         type='checkbox'
@@ -214,12 +215,13 @@ const RecipeForm = () => {
                     <select name='protein'
                     value={formData.protein}
                     onChange={handleInputChange}>
-                        <option value="1005">None</option>
+                        <option value="None">Select</option>
                         <option value="1000">Chicken</option>
                         <option value="1001">Beef</option>
                         <option value="1002">Pork</option>
                         <option value="1003">Seafood</option>
                         <option value="1004">Tofu</option>
+                        <option value="1005">None</option>
                     </select>
                 </label>
 
@@ -228,7 +230,7 @@ const RecipeForm = () => {
                     <select name='cookTime'
                         value={formData.cookTime}
                         onChange={handleInputChange}>
-                        <option value="option"></option>
+                        <option value="option">Select</option>
                         <option value="5">5</option>
                         <option value="10">10</option>
                         <option value="15">15</option>
@@ -346,7 +348,7 @@ const RecipeForm = () => {
                     name='servings'
                     value={formData.servings}
                     onChange={handleInputChange}>
-                        <option value="">Slect One</option>
+                        <option value="">Select</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
