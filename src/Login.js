@@ -3,7 +3,8 @@ import './Login.css'
 import AuthContext from './context/AuthProvider';
 import axios from './api/axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import AllRecipes from './AllRecipes';
+import FullLogo from './images/FullLogo.png';
+
 
 
 
@@ -69,6 +70,7 @@ const Login = () => {
         navigate('/AllRecipes')
       ) : (
       <div className="login-container">
+        <img src={FullLogo} alt="FullLogo" style={{ width: '200px', height: '200px' }}/>
         <h1>Login</h1>
         <form onSubmit={handleLogin} className="login-form">
           <div>

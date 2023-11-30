@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './ViewStudents.css';
 import NavBar from './components/NavBar';
+import { Link } from 'react-router-dom';
+
 
 const ViewStudents = () => {
   const [students, setStudents] = useState([]);
@@ -61,6 +63,7 @@ const ViewStudents = () => {
           <thead>{renderTableHeader()}</thead>
           <tbody>{renderTableData()}</tbody>
         </table>
+        <Link to="/ManageStudents" className='manage-button'>Add a Students</Link>
       </div>
     </div>
   );

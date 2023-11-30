@@ -32,7 +32,7 @@ body{
   
   a {
     color: black; 
-    font-size: 24px; 
+    font-size: 28px; 
     font-family: Oswald; 
     font-weight: 200; 
     word-wrap: break-word;
@@ -40,7 +40,7 @@ body{
   }
   
 a:hover {
-  color: #9B8E73;
+  color: #877b60;
   text-decoration: underline;
 }
 

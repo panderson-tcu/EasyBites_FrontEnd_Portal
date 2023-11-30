@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import './RecipeDetail.css'
+import NavBar from './components/NavBar';
+
 
 const RecipeDetails = () => {
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState({
     title: '',
-    cookTime: '',
+    cooktime: '',
     ingredientsQuantity: '',
     estimatedCost: '',
     instructions: '',
@@ -17,7 +20,6 @@ const RecipeDetails = () => {
   });
 
   useEffect(() => {
-    // Fetch recipe details based on recipeId
     const fetchRecipeDetails = async () => {
       try {
         const response = await fetch(`http://localhost:80/recipes/${recipeId}`);
@@ -36,24 +38,26 @@ const RecipeDetails = () => {
   }, [recipeId]);
 
   const handleEditClick = () => {
-    // Implement navigation to the recipe edit page or open a modal for editing
     console.log('Edit button clicked');
   };
 
   return (
-    <div>
-      <h2>{recipe.title}</h2>
-      <p>Cook Time: {recipe.cookTime} minutes</p>
-      <p>Ingredients: {recipe.ingredientsQuantity}</p>
-      <p>Estimated Cost: ${recipe.estimatedCost}</p>
-      <p>Instructions: {recipe.instructions}</p>
-      <p>Servings: {recipe.servings}</p>
-      <p>Protein: {recipe.protein.name}</p>
-      <p>Ingredients: {recipe.ingredients.map(ingredient => ingredient.name).join(', ')}</p>
-      {/* Add similar sections for displaying other details like appliances and allergens */}
-      
-      <button onClick={handleEditClick}>Edit Recipe</button>
+    <div className='recipe-container'>
+      <NavBar />
+      <div className='container'>
+      <h2>Recipe Details of {recipe.title}</h2>
+        <p>Cook Time: {recipe.cooktime} minutes</p>
+        <p>Ingredients: {recipe.ingredientsQuantity}</p>
+        <p>Estimated Cost: ${recipe.estimatedCost}</p>
+        <p>Instructions: {recipe.instructions}</p>
+        <p>Servings: {recipe.servings}</p>
+        <p>Protein: {recipe.protein?.proteinName}</p>
+        <p>Appliance: {recipe.appliances?.map(appliances => appliances.name).join(', ')}</p>
+        <p>Allergens: {recipe.allergens?.map(allergens => allergens.name).join(', ')}</p>
+        
+        <button onClick={handleEditClick} className='submit'>Edit Recipe</button>
     </div>
+  </div>
   );
 };
 

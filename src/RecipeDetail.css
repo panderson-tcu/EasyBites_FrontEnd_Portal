@@ -1,0 +1,49 @@
+.recipe-container {
+    display: flex;
+    justify-content: flex-start;
+    /* flex-direction: row;
+    flex-wrap: nowrap; */
+} 
+
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    width: 100%;
+} 
+ 
+p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 24px;
+    margin-right: 10px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+h2 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 26px;
+    margin-right: 10px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.submit {
+    padding: 8px 16px;
+    border-radius: 10px;
+    background-color: #F7B27D;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    width: fit-content;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.submit:hover {
+    background-color: #ffd5b6;
+}
+  
