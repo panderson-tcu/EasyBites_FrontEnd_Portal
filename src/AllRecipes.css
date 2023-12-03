@@ -15,17 +15,14 @@
 h1 {
   text-align: center;
   font-size: 50px;
-  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 #title {
     text-align: center;
-    font-family: arial, sans-serif;
   }
   
   #recipes {
     text-align: center;
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     border: 3px solid black;
     width: 100%;

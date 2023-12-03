@@ -43,7 +43,6 @@
     cursor: pointer;
     width: 150px;
     font-size: 16px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
 
   }
   
@@ -59,7 +58,6 @@
   cursor: pointer;
   max-width: 150px;
   font-size: 16px;
-  font-family: Georgia, 'Times New Roman', Times, serif;
   margin-top: 50px;
   text-align: center;
 }

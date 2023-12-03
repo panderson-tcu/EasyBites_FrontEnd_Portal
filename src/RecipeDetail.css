@@ -5,12 +5,10 @@
     flex-wrap: nowrap; */
 } 
 
-
-
 .container {
     display: flex;
     flex-direction: column;
-    margin: 10px;
+    margin: 30px 70px 10px 70px;
     width: 100%;
 } 
  
@@ -20,30 +18,76 @@ p {
     border-radius: 5px;
     font-size: 24px;
     margin-right: 10px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-h2 {
+h1 {
     margin-top: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
-    font-size: 26px;
+    font-size: 40px;
     margin-right: 10px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
 }
 
 .submit {
-    padding: 8px 16px;
+    margin-top: 50px;
+    padding: 10px 20px;
     border-radius: 10px;
     background-color: #F7B27D;
     border: none;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 20px;
     width: fit-content;
-    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .submit:hover {
     background-color: #ffd5b6;
 }
+
+.button-container {
+    display: flex;
+  }
+
+.approved {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    width: fit-content;
+    border: none;
+    cursor: pointer;
+    background-color: rgb(58, 172, 58);
+    font-size: 20px;
+    color: #ffffff;
+    font-weight: 30;
+}
+
+.approved:hover {
+    background-color: rgb(120, 220, 120);
+    color: black
+}
+
+.declined {
+    margin-top: 10px;
+    margin-left: 20px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    width: fit-content;
+    border: none;
+    cursor: pointer;
+    background-color: rgb(226, 70, 70);
+    font-size: 20px;
+    color: #ffffff;
+    font-weight: 30;
+}
+
+.declined:hover {
+    background-color: rgb(255, 138, 138);
+    color: black
+}
+
+.change {
+    margin-top: 50px;
+    font-size: 28px;
+}
+
   

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import './RecipeDetail.css'
 import NavBar from './components/NavBar';
 
@@ -37,15 +37,83 @@ const RecipeDetails = () => {
     fetchRecipeDetails();
   }, [recipeId]);
 
-  const handleEditClick = () => {
-    console.log('Edit button clicked');
-  };
 
+  // const handleEditClick = () => {
+  //   console.log('Edit button clicked');
+  // };
+
+
+  const statusApprove = async () => {
+    try {
+      const response = await fetch(`http://localhost:80/recipes/approved/${recipeId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status: 'approved' }),
+      });
+  
+      if (response.ok) {
+        console.log('Recipe status updated to Approved');
+        setTimeout(async () => {
+          try {
+            const updatedResponse = await fetch(`http://localhost:80/recipes/${recipeId}`);
+            if (updatedResponse.ok) {
+              const updatedRecipe = await updatedResponse.json();
+              setRecipe(updatedRecipe.data);
+            } else {
+              console.error('Failed to fetch updated recipe details');
+            }
+          } catch (error) {
+            console.error('Error fetching updated recipe details:', error);
+          }
+        }, 100); // 100 milliseconds = .1 seconds
+      } else {
+        console.error('Failed to update recipe status');
+      }
+    } catch (error) {
+      console.error('Error updating recipe status:', error);
+    }
+  };
+  
+  const statusDecline = async () => {
+    try {
+      const response = await fetch(`http://localhost:80/recipes/declined/${recipeId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status: 'declined' }),
+      });
+  
+      if (response.ok) {
+        console.log('Recipe status updated to Declined');
+        setTimeout(async () => {
+          try {
+            const updatedResponse = await fetch(`http://localhost:80/recipes/${recipeId}`);
+            if (updatedResponse.ok) {
+              const updatedRecipe = await updatedResponse.json();
+              setRecipe(updatedRecipe.data);
+            } else {
+              console.error('Failed to fetch updated recipe details');
+            }
+          } catch (error) {
+            console.error('Error fetching updated recipe details:', error);
+          }
+        }, 100); // 100 milliseconds = .1 seconds
+      } else {
+        console.error('Failed to update recipe status');
+      }
+    } catch (error) {
+      console.error('Error updating recipe status:', error);
+    }
+  };
+  
   return (
     <div className='recipe-container'>
       <NavBar />
       <div className='container'>
-      <h2>Recipe Details of {recipe.title}</h2>
+      <h1>Recipe Details of {recipe.title}</h1>
         <p>Cook Time: {recipe.cooktime} minutes</p>
         <p>Ingredients: {recipe.ingredientsQuantity}</p>
         <p>Estimated Cost: ${recipe.estimatedCost}</p>
@@ -54,10 +122,18 @@ const RecipeDetails = () => {
         <p>Protein: {recipe.protein?.proteinName}</p>
         <p>Appliance: {recipe.appliances?.map(appliances => appliances.name).join(', ')}</p>
         <p>Allergens: {recipe.allergens?.map(allergens => allergens.name).join(', ')}</p>
-        
-        <button onClick={handleEditClick} className='submit'>Edit Recipe</button>
+        <p>Status: {recipe.status}</p>
+
+        {/* <Link to="/EditRecipe" onClick={handleEditClick} className='submit'>Edit Recipe</Link> */}
+        <Link to={`/recipe/${recipeId}/edit`} className='submit'>Edit Recipe</Link>
+
+        <label className='change'>Change Status:</label>
+        <div class="button-container">
+          <button onClick={statusApprove} className='approved'>Approve</button> 
+          <button onClick={statusDecline} className='declined'>Decline</button>
+        </div>
     </div>
-  </div>
+ </div>
   );
 };
 

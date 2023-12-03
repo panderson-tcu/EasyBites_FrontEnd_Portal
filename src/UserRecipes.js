@@ -1,27 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import './AllRecipes.css';
+import './UserRecipes.css';
+import { Link } from 'react-router-dom';
 import NavBar from './components/NavBar';
+import axios from './api/axios';
+
 
 const AllRecipes = () => {
   const [recipes, setRecipes] = useState([]);
 
-  const baseUrl = 'http://localhost:80';
+  const URL = '/recipes';
 
   useEffect(() => {
     fetchAllRecipes();
   }, []);
 
   const fetchAllRecipes = () => {
-    fetch(baseUrl + "/recipes")
-      .then(response => response.json())
-      .then(data => {
+    axios.get(URL)
+      .then(response => {
+        const data = response.data;
         if (data && Array.isArray(data.data)) {
           setRecipes(data.data);
         } else {
           console.error('Data received does not contain an array:', data);
         }
       })
-      .catch(error => console.error('Error fetching data:', error));
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
   };
 
   const renderTableData = () => {
@@ -29,8 +34,10 @@ const AllRecipes = () => {
       const { recipeId, title, status } = recipe;
       return (
         <tr key={recipeId}>
-          <td>{title}</td>
-          <td>{status}</td>
+          <td>
+          <Link to={`/recipe/${recipe.recipeId}`}>{title}</Link>
+          </td>
+          <td>{recipe?.status}</td>
         </tr>
       );
     });
@@ -49,10 +56,10 @@ const AllRecipes = () => {
   };
 
   return (
-    <div className='AllRecipes-Container'>
+    <div className='user-container'>
       <NavBar />
       <div className='container'>
-        <h1 id='title'>My Recipe Table</h1>
+        <h1 id='title'>Your Recipe Table</h1>
         <table id='recipes'>
           <thead>{renderTableHeader()}</thead>
           <tbody>{renderTableData()}</tbody>
