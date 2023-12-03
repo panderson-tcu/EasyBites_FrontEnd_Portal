@@ -3,15 +3,14 @@ body{
 }
 
 .Container {
-    /* height: 100%; */
-    /* width: 200px; */
-    /* position: fixed; */
     min-height: 100vh;
     min-width: 20vw;
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #EFEBE7;
+    /* background-color: #EFEBE7; */
+    background-color: #f4f0edff;
+
     overflow-x: hidden;
     padding-top: 20px;
     text-align: center;
@@ -28,12 +27,13 @@ body{
   li {
     margin-bottom: 25px;
     margin-right: 50px;
+    font-family: Arial, Helvetica, sans-serif;
   }
   
   a {
     color: black; 
     font-size: 28px; 
-    font-family: Oswald; 
+    /* font-family: Oswald;  */
     font-weight: 200; 
     word-wrap: break-word;
     text-decoration: none;
@@ -42,9 +42,4 @@ body{
 a:hover {
   color: #877b60;
   text-decoration: underline;
-}
-
-.image {
-  max-width: '50px';
-  max-height: '50px'
 }

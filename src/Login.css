@@ -27,12 +27,13 @@
   }
   
   .login-button {
-    padding: 8px 16px;
+    padding: 10px 30px;
     border-radius: 10px;
     background-color: #F7B27D;
     border: none;
     cursor: pointer;
-    width: 100px;
+    width: fit-content;
+    font-size: 20px;
   }
 
   .login-button:hover {
@@ -40,8 +41,8 @@
   }
 
   .errmsg {
-    background-color: lightpink;
-    color: firebrick;
+    background-color: #cc4242;
+    color: #ffffff;
     font-weight: bold;
     padding: 0.5rem;
     margin-bottom: 0.5rem;
@@ -52,4 +53,8 @@
   left: -9999px;
 }
 
+input {
+  font-size: 20px;
+  
+}
   

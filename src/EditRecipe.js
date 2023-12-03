@@ -1,23 +1,29 @@
-import React, { useState } from 'react';
-import './RecipeForm.css';
+import React, { useState, useEffect } from 'react';
+import './EditRecipe.css';
 import NavBar from './components/NavBar';
 
 
-const RecipeForm = () => {
+const EditRecipe = ({ initialRecipe }) => {
     const [formData, setFormData] = useState({
-        title: '',
-        allergens: [],
-        protein: '',
-        cookTime: '',
-        ingredientQuantity: '',
-        upcValues: '',
-        cost: '',
-        appliances: [],
-        instructions: '',
-        servings: '',
-      });
-
-      const [submitted, setSubmitted] = useState(false);
+      title: '',
+      allergens: [],
+      protein: '',
+      cookTime: '',
+      ingredientQuantity: '',
+      upcValues: '',
+      cost: '',
+      appliances: [],
+      instructions: '',
+      servings: '',
+    });
+    const [submitted, setSubmitted] = useState(false);
+  
+    useEffect(() => {
+      if (initialRecipe) {
+        setFormData(initialRecipe);
+      }
+    }, [initialRecipe]);
+    
     
       const handleSubmit = async (event) => {
         event.preventDefault();
@@ -63,7 +69,6 @@ const RecipeForm = () => {
       };
 
       const handleSendData = (formData) => {
-        // Format the data before sending
         const formattedData = {
           title: formData.title,
           cooktime: parseInt(formData.cookTime),
@@ -90,6 +95,8 @@ const RecipeForm = () => {
           appUsers: [],
         };
     
+        // Now, send the formattedData to the server
+        // Your API call or fetch code goes here
         console.log(formattedData); 
         return formattedData;
       };
@@ -125,7 +132,7 @@ const RecipeForm = () => {
       };
 
       return (
-        <div className='RecipeForm-Container'>
+        <div className='EditRecipe-Container'>
             <NavBar />
             <div className='form'>
                 <h1 className='page-title'> Easy Bites Recipe Submission</h1>
@@ -357,8 +364,8 @@ const RecipeForm = () => {
                 </label>
                 <input className='submit' type="submit" value="Submit" />
                 {submitted && (
-                    <div className='success-banner'>Recipe submitted successfully!</div>
-                     )}   
+                    <div className='success-banner'>Recipe updated successfully!</div>
+                )}   
             </form>
             </div>
         </div>  
@@ -366,4 +373,4 @@ const RecipeForm = () => {
     
 }
 
-export default RecipeForm;
+export default EditRecipe;

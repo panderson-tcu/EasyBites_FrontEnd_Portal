@@ -8,6 +8,7 @@ import ManageStudents from './ManageStudents.js';
 import Login from './Login';
 import ViewStudents from './ViewStudents.js';
 import RecipeDetails from './RecipeDetail.js';
+import EditRecipe from './EditRecipe.js';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -33,6 +34,7 @@ const App = () => {
         <Route path='/UserRecipes' element={<UserRecipes />} />
         <Route path='/ViewStudents' element={<ViewStudents />} />
         <Route path="/recipe/:recipeId" element={<RecipeDetails />} />
+        <Route path="/recipe/:recipeId/edit" element={<EditRecipe />}/>      
       </Routes>
     </Router>
   );

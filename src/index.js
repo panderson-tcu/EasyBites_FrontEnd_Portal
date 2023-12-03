@@ -11,3 +11,28 @@ root.render(
   </AuthProvider>
 );
 
+function setGlobalFont(fontFamily) {
+  const style = document.createElement('style');
+  style.innerHTML = `
+      body, h1, p, div {
+          font-family: ${fontFamily}, sans-serif;
+      }
+  `;
+  document.head.appendChild(style);
+}
+
+setGlobalFont('Arial'); 
+
+function setGlobalSubFont(fontFamily) {
+  const style = document.createElement('style');
+  style.innerHTML = `
+      input, select, button, Link {
+          font-family: ${fontFamily}, sans-serif;
+      }
+  `;
+  document.head.appendChild(style);
+}
+
+setGlobalSubFont('helvetica'); 
+
+
