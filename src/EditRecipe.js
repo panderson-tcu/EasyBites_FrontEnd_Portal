@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './EditRecipe.css';
 import NavBar from './components/NavBar';
+import {AuthContext, useAuth} from  './context/AuthProvider';
 
 
 const EditRecipe = ({ initialRecipe }) => {
@@ -18,6 +19,19 @@ const EditRecipe = ({ initialRecipe }) => {
     });
     const [submitted, setSubmitted] = useState(false);
   
+    const { auth, setAuth } = useAuth()
+      console.log("printing auth information")
+      console.log(auth.user)
+      console.log(auth.pwd)
+      console.log(auth.roles)
+      console.log(auth.accessToken)
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${auth.accessToken}`,
+        },
+      };
+
     useEffect(() => {
       if (initialRecipe) {
         setFormData(initialRecipe);
@@ -27,6 +41,7 @@ const EditRecipe = ({ initialRecipe }) => {
     
       const handleSubmit = async (event) => {
         event.preventDefault();
+        // once you make this an axios request, add config as a header to send the user authentication
         try {
           const response = await fetch('http://localhost:80/recipes', {
             method: 'POST',

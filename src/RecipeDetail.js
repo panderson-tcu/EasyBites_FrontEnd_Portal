@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './RecipeDetail.css'
 import NavBar from './components/NavBar';
+import {AuthContext, useAuth} from  './context/AuthProvider';
+
 
 
 const RecipeDetails = () => {
@@ -18,6 +20,21 @@ const RecipeDetails = () => {
     appliances: [],
     allergens: [],
   });
+
+  const { auth, setAuth } = useAuth()
+  console.log("printing auth information")
+  console.log(auth.user)
+  console.log(auth.pwd)
+  console.log(auth.roles)
+  console.log(auth.accessToken)
+  console.log(auth.id)
+
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${auth.accessToken}`,
+    },
+  };
 
   useEffect(() => {
     const fetchRecipeDetails = async () => {
