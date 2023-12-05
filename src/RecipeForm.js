@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './RecipeForm.css';
 import NavBar from './components/NavBar';
 import {AuthContext, useAuth} from  './context/AuthProvider';
+import axios from './api/axios';
 
 
 const RecipeForm = () => {
@@ -34,22 +35,12 @@ const RecipeForm = () => {
       };
       const handleSubmit = async (event) => {
         event.preventDefault();
-        // once you make this an axios request, add config as a header to send the user authentication
-        try {
-          const response = await fetch(URL+'/recipes', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(handleSendData(formData)),
-            // body: JSON.stringify(formData),
-            
-          });
-    
-          if (response.ok) {
-            console.log('Recipe submitted successfully!');
-            setSubmitted(true); // Set submitted to true to display the success banner
-            setFormData({ // Reset the form after submission
+        axios.post(URL+'/recipes',handleSendData(formData), config)
+          .then(response => {
+            if(response.status==200){
+              console.log('Recipe submitted successfully!');
+              setSubmitted(true);
+              setFormData({ // Reset the form after submission
                 title: '',
                 allergens: [],
                 protein: '',
@@ -64,16 +55,17 @@ const RecipeForm = () => {
             setTimeout(() => {
                 setSubmitted(false);
               }, 3000);
-        } else {
-            console.error(
-              'Failed to submit recipe:',
-              response.status,
-              response.statusText
-            );
-          }
-        } catch (error) {
-          console.error('Error submitting recipe:', error);
-        }
+            } else {
+              console.error(
+                'Failed to submit recipe:',
+                response.status,
+                response.statusText
+              );
+            }
+          }) 
+          .catch (error => {
+            console.error('Error submitting recipe:', error);
+          })
       };
 
       const handleSendData = (formData) => {
@@ -90,7 +82,7 @@ const RecipeForm = () => {
             proteinId: formData.protein,
           },
           recipeOwner: {
-            nutritionUserId: 110400159,
+            nutritionUserId: auth.id,
           },
           ingredients: formData.upcValues
             .split('\n')
