@@ -114,18 +114,18 @@ const RecipeDetails = () => {
       <NavBar />
       <div className='container'>
       <h1>Recipe Details of {recipe.title}</h1>
-        <p>Cook Time: {recipe.cooktime} minutes</p>
-        <p>Ingredients: {recipe.ingredientsQuantity}</p>
-        <p>Estimated Cost: ${recipe.estimatedCost}</p>
-        <p>Instructions: {recipe.instructions}</p>
-        <p>Servings: {recipe.servings}</p>
-        <p>Protein: {recipe.protein?.proteinName}</p>
-        <p>Appliance: {recipe.appliances?.map(appliances => appliances.name).join(', ')}</p>
-        <p>Allergens: {recipe.allergens?.map(allergens => allergens.name).join(', ')}</p>
-        <p>Status: {recipe.status}</p>
+      <p className='info-header'>Cook Time: </p> <p className='info-details'> {recipe.cooktime} minutes</p>
+        <p className='info-header'>Ingredients: </p> <p className='info-details'>{recipe.ingredientsQuantity}</p>
+        <p className='info-header'>Estimated Cost: </p> <p className='info-details'>${recipe.estimatedCost}</p>
+        <p className='info-header'>Instructions: </p> <p className='info-details'>{recipe.instructions}</p>
+        <p className='info-header'>Servings: </p> <p className='info-details'> {recipe.servings}</p>
+        <p className='info-header'>Protein: </p> <p className='info-details'> {recipe.protein?.proteinName}</p>
+        <p className='info-header'>Appliance: </p> <p className='info-details'> {recipe.appliances?.map(appliances => appliances.name).join(', ')}</p>
+        <p className='info-header'>Allergens: </p> <p className='info-details'> {recipe.allergens?.map(allergens => allergens.name).join(', ')}</p>
+        <p className='info-header'> Status: </p> <p className='info-details'> {recipe.status}</p>
 
         {/* <Link to="/EditRecipe" onClick={handleEditClick} className='submit'>Edit Recipe</Link> */}
-        <Link to={`/recipe/${recipeId}/edit`} className='submit'>Edit Recipe</Link>
+        <Link to={`/recipe/${recipeId}/edit`} className='edit'>Edit Recipe</Link>
 
         <label className='change'>Change Status:</label>
         <div class="button-container">
