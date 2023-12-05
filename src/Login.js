@@ -4,9 +4,7 @@ import AuthContext from './context/AuthProvider';
 import axios from './api/axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import FullLogo from './images/FullLogo.png';
-
-
-
+import { AuthProvider } from './context/AuthProvider';
 
 
 const LOGIN_URL = '/nutrition-user/login';
@@ -44,9 +42,14 @@ const Login = () => {
       );
       console.log(JSON.stringify(response?.data))
       // console.log(JSON.stringify(response))
-      const accessToken = response?.data?.accessToken;
-      const roles = response?.data?.roles;
-      setAuth({ user, pwd, roles, accessToken });
+      const accessToken = JSON.stringify(response?.data?.data?.token).replace(/["']/g, '');
+      // console.log("printing access token")
+      // console.log(JSON.stringify(response?.data?.data?.token))
+      const roles = response?.data?.data?.userInfo?.adminLevel;
+      const id = response?.data?.data?.userInfo?.nutritionUserId;
+      console.log("Nutrition student id" + id)
+
+      setAuth({ user, pwd, roles, id, accessToken });
       setUser('');
       setPwd('');
       setSuccess(true);
@@ -65,6 +68,7 @@ const Login = () => {
   }
   
   return (
+    <AuthProvider>
     <>
       {success ? (
         navigate('/AllRecipes')
@@ -103,7 +107,8 @@ const Login = () => {
         <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
       </div>
         )}
-    </>
+    </>   
+    </AuthProvider> 
   )
 }
 

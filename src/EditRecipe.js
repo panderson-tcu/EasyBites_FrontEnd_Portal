@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './EditRecipe.css';
 import NavBar from './components/NavBar';
-
+import {AuthContext, useAuth} from  './context/AuthProvider';
+import axios from './api/axios';
 
 const EditRecipe = () => {
   const { recipeId } = useParams();
@@ -21,21 +22,33 @@ const EditRecipe = () => {
   });
   const [submitted, setSubmitted] = useState(false);
 
+  const { auth, setAuth } = useAuth()
+  console.log("printing auth information in edit-recipe page")
+  console.log(auth.user)
+  console.log(auth.pwd)
+  console.log(auth.roles)
+  console.log(auth.accessToken)
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${auth.accessToken}`,
+    },
+  };
 
     useEffect(() => {
       const fetchRecipeDetails = async () => {
-        try {
-          const response = await fetch(URL + `/recipes/${recipeId}`);
-          // console.log(response.status); 
-          if (response.status === 200) {
-            const recipeData = await response.json();
-            setFormData(recipeData.data);
-          } else {
-            console.error('Failed to fetch recipe details:', response.statusText);
-          }
-        } catch (error) {
-          console.error('Error fetching recipe details:', error);
-        }
+        axios.get(URL+`/recipes/${recipeId}`, config)
+          .then(response => {
+            const recipeData = response.data;
+            if(response.status==200){
+              setFormData(recipeData.data)
+            } else {
+              console.error('Failed to fetch recipe details:', response.statusText);
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching recipe details:', error);
+          })
       };
     
       fetchRecipeDetails();
@@ -130,18 +143,31 @@ const EditRecipe = () => {
 
       const handleSubmit = async (event) => {
         event.preventDefault();
-        try {
-          const response = await fetch(`http://localhost:80/recipes/${recipeId}`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(handleSendData(recipe)), 
-          });
+        axios.put(URL+`/recipes/${recipeId}`,handleSendData(recipe), config)
+          .then(response => {
+            const recipeData = response.data;
+            if(response.status==200){
+              console.log(JSON.stringify(recipeData))
+            } else {
+              console.error('Failed to edit recipe details:', response.statusText)
+            }
+          })
+          .catch(error => {
+            console.error('Error submitting recipe:', error);
+          })
+
+        // try {
+        //   const response = await fetch(`http://localhost:80/recipes/${recipeId}`, {
+        //     method: 'PUT',
+        //     headers: {
+        //       'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(handleSendData(recipe)), 
+        //   });
     
-        } catch (error) {
-          console.error('Error submitting recipe:', error);
-        }
+        // } catch (error) {
+        //   console.error('Error submitting recipe:', error);
+        // }
       };
 
       return (

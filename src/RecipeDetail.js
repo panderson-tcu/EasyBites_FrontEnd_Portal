@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './RecipeDetail.css'
 import NavBar from './components/NavBar';
+import {AuthContext, useAuth} from  './context/AuthProvider';
+import axios from './api/axios';
 
 
 const RecipeDetails = () => {
@@ -19,19 +21,47 @@ const RecipeDetails = () => {
     allergens: [],
   });
 
+  const { auth, setAuth } = useAuth()
+  console.log("printing auth information")
+  console.log(auth.user)
+  console.log(auth.pwd)
+  console.log(auth.roles)
+  console.log(auth.accessToken)
+  console.log(auth.id)
+
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${auth.accessToken}`,
+    },
+  };
+
   useEffect(() => {
     const fetchRecipeDetails = async () => {
-      try {
-        const response = await fetch(`http://localhost:80/recipes/${recipeId}`);
-        if (response.ok) {
-          const recipeData = await response.json();
-          setRecipe(recipeData.data);
-        } else {
-          console.error('Failed to fetch recipe details');
-        }
-      } catch (error) {
-        console.error('Error fetching recipe details:', error);
-      }
+      axios.get(`http://localhost:80/recipes/${recipeId}`, config)
+        .then(response => {
+          const recipeData = response.data;
+          if(response.status==200){
+            setRecipe(recipeData.data)
+          } else {
+            console.error('Failed to fetch recipe details:', response.statusText);
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching recipe details:', error);
+        })
+    // const fetchRecipeDetails = async () => {
+    //   try {
+    //     const response = await fetch(`http://localhost:80/recipes/${recipeId}`);
+    //     if (response.ok) {
+    //       const recipeData = await response.json();
+    //       setRecipe(recipeData.data);
+    //     } else {
+    //       console.error('Failed to fetch recipe details');
+    //     }
+    //   } catch (error) {
+    //     console.error('Error fetching recipe details:', error);
+    //   }
     };
 
     fetchRecipeDetails();

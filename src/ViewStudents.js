@@ -2,11 +2,23 @@ import React, { useState, useEffect } from 'react';
 import './ViewStudents.css';
 import NavBar from './components/NavBar';
 import { Link } from 'react-router-dom';
+import {AuthContext, useAuth} from  './context/AuthProvider';
 
 
 const ViewStudents = () => {
   const [students, setStudents] = useState([]);
+  const { auth, setAuth } = useAuth()
+  console.log("printing auth information")
+  console.log(auth.user)
+  console.log(auth.pwd)
+  console.log(auth.roles)
+  console.log(auth.accessToken)
 
+  const config = {
+    headers: {
+      Authorization: `Bearer ${auth.accessToken}`,
+    },
+  };
   const baseUrl = 'http://localhost:80';
 
   useEffect(() => {
@@ -14,7 +26,7 @@ const ViewStudents = () => {
   }, []);
 
   const fetchAllNutritionUsers = () => {
-    fetch(baseUrl + "/nutrition-user")
+    fetch(baseUrl + "/nutrition-user", config)
       .then(response => response.json())
       .then(data => {
         if (data && Array.isArray(data.data)) {
