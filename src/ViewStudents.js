@@ -63,7 +63,7 @@ const ViewStudents = () => {
           <thead>{renderTableHeader()}</thead>
           <tbody>{renderTableData()}</tbody>
         </table>
-        <Link to="/ManageStudents" className='manage-button'>Add a Students</Link>
+        <Link to="/ManageStudents" className='manage-button'>Add a Student</Link>
       </div>
     </div>
   );

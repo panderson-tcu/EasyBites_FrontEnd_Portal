@@ -52,19 +52,15 @@ const EditRecipe = () => {
         servings: parseInt(recipe.servings),
         status: null,
         protein: {
-          proteinId: recipe.protein,
+          proteinId: recipe?.protein?.proteinId,
         },
         recipeOwner: {
           nutritionUserId: 110400159,
         },
-        // ingredients: [recipe.ingredients],
         ingredients: 
           recipe.ingredients.map((ingredient) => ({
             upcValue: ingredient.upcValue,
           })),
-          // .split('\n')
-          // .map((upcValue) => ({ upcValue }))
-          
         appliances: recipe.appliances.map((appliance) => ({
           applianceId: appliance,
         })),
@@ -99,12 +95,37 @@ const EditRecipe = () => {
         }));
       };
     
+      // const handleInputChange = (event) => {
+      //   const { name, value } = event.target;
+      //   setFormData((prevFormData) => ({
+      //     ...prevFormData,
+      //     [name]: value,
+      //   }));
+      // };
+
       const handleInputChange = (event) => {
         const { name, value } = event.target;
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          [name]: value,
-        }));
+      
+        if (name === 'ingredients') {
+          // Split the textarea value into an array of lines
+          const ingredientLines = value.split('\n');
+      
+          // Create a new array of ingredients using the upcValues from each line
+          const newIngredients = ingredientLines.map((line) => ({
+            upcValue: line.trim(), // Trim removes leading and trailing whitespaces
+          }));
+      
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            ingredients: newIngredients,
+          }));
+        } else {
+          // For other fields, update the state as usual
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            [name]: value,
+          }));
+        }
       };
 
       const handleSubmit = async (event) => {
@@ -254,8 +275,9 @@ const EditRecipe = () => {
                         onChange={handleInputChange}></textarea>      
                 </label>
                 <label>UPC Value:</label><label className='sub-label'>Located on Kroger.com. Please specify each ingredient in a seperate line. Please include the Kroger UPC value from the store website. <br/> Examples: <br/> 0001111050158 <br/> 0001111096920 <br /> 0001111096921
-                    <textarea name='upcValue'
-                        value={recipe.ingredients.upcValue}
+                    <textarea 
+                        name='ingredients'
+                        value={recipe.ingredients.map(ingredient => ingredient.upcValue).join('\n')}
                         onChange={handleInputChange}></textarea>      
                 </label>
                 <label>Estimated Ingredients Cost:</label><label className='sub-label'>
