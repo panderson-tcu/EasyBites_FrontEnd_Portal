@@ -29,7 +29,7 @@ h1 {
     text-align: center;
 }
 
-.submit {
+.edit {
     margin-top: 50px;
     padding: 10px 20px;
     border-radius: 10px;
@@ -40,12 +40,13 @@ h1 {
     width: fit-content;
 }
 
-.submit:hover {
+.edit:hover {
     background-color: #ffd5b6;
 }
 
 .button-container {
     display: flex;
+    margin-bottom: 50px;
   }
 
 .approved {
@@ -90,4 +91,13 @@ h1 {
     font-size: 28px;
 }
 
+.info-header {
+    font-weight: bold;
+    
+}
+
+.info-details {
+    background-color: #EFEBE7;
+    padding: 10px;
+}
   
