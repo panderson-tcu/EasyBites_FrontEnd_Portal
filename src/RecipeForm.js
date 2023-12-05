@@ -5,6 +5,7 @@ import {AuthContext, useAuth} from  './context/AuthProvider';
 
 
 const RecipeForm = () => {
+  const URL = 'http://localhost:80';
     const [formData, setFormData] = useState({
         title: '',
         allergens: [],
@@ -35,7 +36,7 @@ const RecipeForm = () => {
         event.preventDefault();
         // once you make this an axios request, add config as a header to send the user authentication
         try {
-          const response = await fetch('http://localhost:80/recipes', {
+          const response = await fetch(URL+'/recipes', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -230,14 +231,14 @@ const RecipeForm = () => {
                         <option value="1000">Chicken</option>
                         <option value="1001">Beef</option>
                         <option value="1002">Pork</option>
-                        <option value="1003">Seafood</option>
-                        <option value="1004">Tofu</option>
+                        <option value="1004">Seafood</option>
+                        <option value="1003">Tofu</option>
                         <option value="1005">None</option>
                     </select>
                 </label>
 
                 <label>
-                    Recipe Time:</label> <label className='sub-label'> Recipe time refers to the time in minutes needed to cook recipe and preparation process time combine.
+                    Cook Time:</label> <label className='sub-label'> Recipe time refers to the time in minutes needed to cook recipe and preparation process time combine.
                     <select name='cookTime'
                         value={formData.cookTime}
                         onChange={handleInputChange}>

@@ -18,7 +18,7 @@ const ManageStudents = () => {
       const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-          const response = await fetch('http://localhost:80/nutrition-user', {
+          const response = await fetch(URL+'/nutrition-user', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
