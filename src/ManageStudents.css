@@ -41,8 +41,7 @@
     background-color: #F7B27D;
     border: none;
     cursor: pointer;
-    width: 150px;
-    font-size: 16px;
+    width: fit-content;
 
   }
   
@@ -56,8 +55,8 @@
   background-color: #9fa186;
   border: none;
   cursor: pointer;
-  max-width: 150px;
-  font-size: 16px;
+  max-width: fit-content;
+  font-size: 20px;
   margin-top: 50px;
   text-align: center;
 }

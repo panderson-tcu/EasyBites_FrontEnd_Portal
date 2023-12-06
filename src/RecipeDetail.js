@@ -147,14 +147,15 @@ const RecipeDetails = () => {
       <NavBar />
       <div className='container'>
       <h1>Recipe Details of {recipe.title}</h1>
-      <p className='info-header'>Cook Time: </p> <p className='info-details'> {recipe.cooktime} minutes</p>
+        <p className='info-header'>Title: </p> <p className='info-details'> {recipe.title}</p>
+        <p className='info-header'>Allergens: </p> <p className='info-details'> {recipe.allergens?.map(allergens => allergens.name).join(', ')}</p>
+        <p className='info-header'>Protein: </p> <p className='info-details'> {recipe.protein?.proteinName}</p>
+        <p className='info-header'>Cook Time: </p> <p className='info-details'> {recipe.cooktime} minutes</p>
         <p className='info-header'>Ingredients: </p> <p className='info-details'>{recipe.ingredientsQuantity}</p>
         <p className='info-header'>Estimated Cost: </p> <p className='info-details'>${recipe.estimatedCost}</p>
+        <p className='info-header'>Appliance: </p> <p className='info-details'> {recipe.appliances?.map(appliances => appliances.name).join(', ')}</p>
         <p className='info-header'>Instructions: </p> <p className='info-details'>{recipe.instructions}</p>
         <p className='info-header'>Servings: </p> <p className='info-details'> {recipe.servings}</p>
-        <p className='info-header'>Protein: </p> <p className='info-details'> {recipe.protein?.proteinName}</p>
-        <p className='info-header'>Appliance: </p> <p className='info-details'> {recipe.appliances?.map(appliances => appliances.name).join(', ')}</p>
-        <p className='info-header'>Allergens: </p> <p className='info-details'> {recipe.allergens?.map(allergens => allergens.name).join(', ')}</p>
         <p className='info-header'> Status: </p> <p className='info-details'> {recipe.status}</p>
 
         {/* <Link to="/EditRecipe" onClick={handleEditClick} className='submit'>Edit Recipe</Link> */}
