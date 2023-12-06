@@ -201,7 +201,7 @@ const EditRecipe = () => {
                     </input>
                 </label>
                
-                <label htmlFor="multipleSelect">Allergren Options:</label>
+                <label htmlFor="multipleSelect">Allergen Options:</label>
                 <label className='sub-label'>Select all allergens that are in the Recipe <br /> ex. Pasta conatinas wheat so select wheat</label>
                 <label className='sub-label'>
                   <input
