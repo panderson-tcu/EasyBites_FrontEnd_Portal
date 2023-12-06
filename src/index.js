@@ -35,4 +35,10 @@ function setGlobalSubFont(fontFamily) {
 
 setGlobalSubFont('helvetica'); 
 
+let URL;
 
+function setGlobalURL() {
+  URL = 'http://localhost:80'; 
+}
+
+setGlobalURL(); // Call the function to set the global URL

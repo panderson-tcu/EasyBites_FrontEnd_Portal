@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import './RecipeForm.css';
 import NavBar from './components/NavBar';
+import {AuthContext, useAuth} from  './context/AuthProvider';
+import axios from './api/axios';
 
 
 const RecipeForm = () => {
+  const URL = 'http://localhost:80';
     const [formData, setFormData] = useState({
         title: '',
         allergens: [],
@@ -18,24 +21,26 @@ const RecipeForm = () => {
       });
 
       const [submitted, setSubmitted] = useState(false);
-    
+      const { auth, setAuth } = useAuth()
+      console.log("printing auth information")
+      console.log(auth.user)
+      console.log(auth.pwd)
+      console.log(auth.roles)
+      console.log(auth.accessToken)
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${auth.accessToken}`,
+        },
+      };
       const handleSubmit = async (event) => {
         event.preventDefault();
-        try {
-          const response = await fetch('http://localhost:80/recipes', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(handleSendData(formData)),
-            // body: JSON.stringify(formData),
-            
-          });
-    
-          if (response.ok) {
-            console.log('Recipe submitted successfully!');
-            setSubmitted(true); // Set submitted to true to display the success banner
-            setFormData({ // Reset the form after submission
+        axios.post(URL+'/recipes',handleSendData(formData), config)
+          .then(response => {
+            if(response.status==200){
+              console.log('Recipe submitted successfully!');
+              setSubmitted(true);
+              setFormData({ // Reset the form after submission
                 title: '',
                 allergens: [],
                 protein: '',
@@ -50,16 +55,17 @@ const RecipeForm = () => {
             setTimeout(() => {
                 setSubmitted(false);
               }, 3000);
-        } else {
-            console.error(
-              'Failed to submit recipe:',
-              response.status,
-              response.statusText
-            );
-          }
-        } catch (error) {
-          console.error('Error submitting recipe:', error);
-        }
+            } else {
+              console.error(
+                'Failed to submit recipe:',
+                response.status,
+                response.statusText
+              );
+            }
+          }) 
+          .catch (error => {
+            console.error('Error submitting recipe:', error);
+          })
       };
 
       const handleSendData = (formData) => {
@@ -76,7 +82,7 @@ const RecipeForm = () => {
             proteinId: formData.protein,
           },
           recipeOwner: {
-            nutritionUserId: 110400159,
+            nutritionUserId: auth.id,
           },
           ingredients: formData.upcValues
             .split('\n')
@@ -217,14 +223,14 @@ const RecipeForm = () => {
                         <option value="1000">Chicken</option>
                         <option value="1001">Beef</option>
                         <option value="1002">Pork</option>
-                        <option value="1003">Seafood</option>
-                        <option value="1004">Tofu</option>
+                        <option value="1004">Seafood</option>
+                        <option value="1003">Tofu</option>
                         <option value="1005">None</option>
                     </select>
                 </label>
 
                 <label>
-                    Recipe Time:</label> <label className='sub-label'> Recipe time refers to the time in minutes needed to cook recipe and preparation process time combine.
+                    Cook Time:</label> <label className='sub-label'> Recipe time refers to the time in minutes needed to cook recipe and preparation process time combine.
                     <select name='cookTime'
                         value={formData.cookTime}
                         onChange={handleInputChange}>

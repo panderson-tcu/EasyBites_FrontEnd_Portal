@@ -1,12 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './AllRecipes.css';
 import { Link } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import axios from './api/axios';
+import {AuthContext, useAuth} from  './context/AuthProvider';
+
+
 
 
 const AllRecipes = () => {
   const [recipes, setRecipes] = useState([]);
+  // console.log(useContext(AuthContext).auth.accessToken)
+  const { auth, setAuth } = useAuth()
+  console.log("printing auth information")
+  console.log(auth.user)
+  console.log(auth.pwd)
+  console.log(auth.roles)
+  console.log(auth.accessToken)
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${auth.accessToken}`,
+    },
+  };
+  console.log(config)
 
   const URL = '/recipes';
 
@@ -28,7 +45,7 @@ const AllRecipes = () => {
   // };
 
   const fetchAllRecipes = () => {
-    axios.get(URL)
+    axios.get(URL, config)
       .then(response => {
         const data = response.data;
         if (data && Array.isArray(data.data)) {

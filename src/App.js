@@ -9,6 +9,7 @@ import Login from './Login';
 import ViewStudents from './ViewStudents.js';
 import RecipeDetails from './RecipeDetail.js';
 import EditRecipe from './EditRecipe.js';
+import { AuthProvider } from './context/AuthProvider.js';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -18,25 +19,29 @@ const App = () => {
   };
 
   return (
-    <Router>
-      <Routes>
-        <Route 
-          path='/login' 
-          element={<Login onLogin={handleLogin} />}
-        />
-        <Route
-          path='/'
-          element={isLoggedIn ? <AllRecipes /> : <Navigate to="/login" />}
-        />
-        <Route path='/AllRecipes' element={<AllRecipes />} />
-        <Route path='/RecipeForm' element={<RecipeForm />} />
-        <Route path='/ManageStudents' element={<ManageStudents />} />
-        <Route path='/UserRecipes' element={<UserRecipes />} />
-        <Route path='/ViewStudents' element={<ViewStudents />} />
-        <Route path="/recipe/:recipeId" element={<RecipeDetails />} />
-        <Route path="/recipe/:recipeId/edit" element={<EditRecipe />}/>      
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route 
+            path='/login' 
+            element={<Login onLogin={handleLogin} />}
+          />
+          <Route
+            path='/'
+            element={isLoggedIn ? <AllRecipes /> : <Navigate to="/login" />}
+          />
+          <Route path='/AllRecipes' element={<AllRecipes />} />
+          <Route path='/RecipeForm' element={<RecipeForm />} />
+          <Route path='/ManageStudents' element={<ManageStudents />} />
+          <Route path='/UserRecipes' element={<UserRecipes />} />
+          <Route path='/ViewStudents' element={<ViewStudents />} />
+          <Route path="/recipe/:recipeId" element={<RecipeDetails />} />
+          <Route path="/recipe/:recipeId/edit" element={<EditRecipe />}/>      
+        </Routes>
+      </Router>
+    </AuthProvider>
+      
+    
   );
 };
 
