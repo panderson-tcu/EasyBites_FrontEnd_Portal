@@ -4,18 +4,15 @@ body{
 
 .Container {
     min-height: 100vh;
-    min-width: 20vw;
+    min-width: 300px;
     z-index: 1;
     top: 0;
     left: 0;
-    /* background-color: #EFEBE7; */
     background-color: #f4f0edff;
-
     overflow-x: hidden;
     padding-top: 20px;
     text-align: center;
-
-  }
+}
   
   ul {
     list-style-type: none;
@@ -30,16 +27,25 @@ body{
     font-family: Arial, Helvetica, sans-serif;
   }
   
-  a {
-    color: black; 
-    font-size: 28px; 
-    /* font-family: Oswald;  */
-    font-weight: 200; 
-    word-wrap: break-word;
-    text-decoration: none;
-  }
+a {
+  color: black; 
+  font-size: 28px; 
+  font-weight: 200; 
+  word-wrap: break-word;
+  text-decoration: none;
+}
   
 a:hover {
   color: #877b60;
   text-decoration: underline;
+}
+
+.userName {
+  position:fixed;
+  min-width: 300px;
+  bottom: 0;
+  background-color: #f4f0edff;
+  text-align: center;
+  justify-content: center;
+  color: #877b60;
 }

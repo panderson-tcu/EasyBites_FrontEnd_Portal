@@ -71,7 +71,7 @@ const ViewStudents = () => {
       <NavBar />
       <div className='container'>
         <h1 id='title'>All Students </h1>
-        <table id='students'>
+        <table className='studentTable' id='students'>
           <thead>{renderTableHeader()}</thead>
           <tbody>{renderTableData()}</tbody>
         </table>

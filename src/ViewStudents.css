@@ -51,7 +51,7 @@ h1 {
     border: none;
     cursor: pointer;
     width: fit-content;
-    font-size: 16px;
+    font-size: 20px;
     margin-top: 50px;
     text-align: center;
   }
@@ -62,3 +62,6 @@ h1 {
     color: #000000;
   }
   
+  .studentTable {
+    font-size: 24px;
+  }

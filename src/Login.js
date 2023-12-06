@@ -47,9 +47,10 @@ const Login = () => {
       // console.log(JSON.stringify(response?.data?.data?.token))
       const roles = response?.data?.data?.userInfo?.adminLevel;
       const id = response?.data?.data?.userInfo?.nutritionUserId;
+      const name = response?.data?.data?.userInfo?.firstName + ' ' + response?.data?.data?.userInfo?.lastName;
       console.log("Nutrition student id" + id)
 
-      setAuth({ user, pwd, roles, id, accessToken });
+      setAuth({ user, pwd, roles, id, accessToken, name });
       setUser('');
       setPwd('');
       setSuccess(true);
