@@ -150,9 +150,21 @@ const RecipeDetails = () => {
       <div className='container'>
       <h1>Recipe Details of {recipe.title}</h1>
       <p className='info-header'>Cook Time: </p> <p className='info-details'> {recipe.cooktime} minutes</p>
-        <p className='info-header'>Ingredients: </p> <p className='info-details'>{recipe.ingredientsQuantity}</p>
+        <p className='info-header'>Ingredients: </p> <p className='info-details'> 
+        {recipe.ingredientsQuantity.split('\n').map((line, index) => (
+          <React.Fragment key={index}>
+            {line}
+            <br />
+          </React.Fragment>
+        ))}</p>
         <p className='info-header'>Estimated Cost: </p> <p className='info-details'>${recipe.estimatedCost}</p>
-        <p className='info-header'>Instructions: </p> <p className='info-details'>{recipe.instructions}</p>
+        <p className='info-header'>Instructions: </p> <p className='info-details'> 
+        {recipe.instructions.split('\n').map((line, index) => (
+          <React.Fragment key={index}>
+            {line}
+            <br />
+          </React.Fragment>
+        ))}</p>
         <p className='info-header'>Servings: </p> <p className='info-details'> {recipe.servings}</p>
         <p className='info-header'>Protein: </p> <p className='info-details'> {recipe.protein?.proteinName}</p>
         <p className='info-header'>Appliance: </p> <p className='info-details'> {recipe.appliances?.map(appliances => appliances.name).join(', ')}</p>
