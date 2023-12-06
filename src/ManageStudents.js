@@ -4,6 +4,7 @@ import NavBar from './components/NavBar';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 const ManageStudents = () => {
+  const URL = 'http://localhost:80';
   const [userData, setUserData] = useState({
     nutritionUserId: '',
     firstName: '',
