@@ -155,19 +155,6 @@ const EditRecipe = () => {
           .catch(error => {
             console.error('Error submitting recipe:', error);
           })
-
-        // try {
-        //   const response = await fetch(`http://localhost:80/recipes/${recipeId}`, {
-        //     method: 'PUT',
-        //     headers: {
-        //       'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(handleSendData(recipe)), 
-        //   });
-    
-        // } catch (error) {
-        //   console.error('Error submitting recipe:', error);
-        // }
       };
 
       return (
@@ -189,67 +176,94 @@ const EditRecipe = () => {
                 <label htmlFor="multipleSelect">Allergren Options:</label>
                 <label className='sub-label'>Select all allergens that are in the Recipe <br /> ex. Pasta conatinas wheat so select wheat</label>
                 <label className='sub-label'>
-                    <input 
-                        type='checkbox'
-                        name='2000'
-                        checked={recipe.allergens.includes('2000')}
-                        onChange={handleCheckboxChangeAlrg}></input> Milk <br />
+                  <input
+                      type='checkbox'
+                      id='allergenMilkCheckbox'
+                      checked={recipe.allergens.some((allergen) => allergen.allergenId === 2000)}
+                      onChange={handleCheckboxChangeAlrg}
+                    />
+                    <label htmlFor='allergenMilkCheckbox'>Milk</label>
+                    <br />
                 </label>
                 <label className='sub-label'>
-                    <input 
-                        type='checkbox' 
-                        name='2001' 
-                        checked={recipe.allergens.includes('2001')}
-                        onChange={handleCheckboxChangeAlrg}></input> Eggs <br />
+                  <input
+                      type='checkbox'
+                      id='allergenEggCheckbox'
+                      checked={recipe.allergens.some((allergen) => allergen.allergenId === 2001)}
+                      onChange={handleCheckboxChangeAlrg}
+                    />
+                    <label htmlFor='allergenMilkCheckbox'>Eggs</label>
+                    <br />
                 </label>
                 <label className='sub-label'>
-                    <input 
-                        type='checkbox' 
-                        name='2002' 
-                        checked={recipe.allergens.includes('2002')}
-                        onChange={handleCheckboxChangeAlrg}></input> Peanuts <br />
+                  <input
+                      type='checkbox'
+                      id='allergenPeanutCheckbox'
+                      checked={recipe.allergens.some((allergen) => allergen.allergenId === 2002)}
+                      onChange={handleCheckboxChangeAlrg}
+                    />
+                    <label htmlFor='allergenMilkCheckbox'>Peanuts</label>
+                    <br />
                 </label>
                 <label className='sub-label'>
-                    <input 
-                        type='checkbox' 
-                        name='2003' 
-                        checked={recipe.allergens.includes('2003')}
-                        onChange={handleCheckboxChangeAlrg}></input> Tree Nuts <br />
+                  <input
+                      type='checkbox'
+                      id='allergenTreeNutsCheckbox'
+                      checked={recipe.allergens.some((allergen) => allergen.allergenId === 2003)}
+                      onChange={handleCheckboxChangeAlrg}
+                    />
+                    <label htmlFor='allergenMilkCheckbox'>Tree Nuts</label>
+                    <br />
                 </label>
                 <label className='sub-label'>
-                    <input 
-                        type='checkbox' 
-                        name='2004'
-                        checked={recipe.allergens.includes('2004')}
-                        onChange={handleCheckboxChangeAlrg}></input> Soy <br />
+                  <input
+                      type='checkbox'
+                      id='allergenSoyCheckbox'
+                      checked={recipe.allergens.some((allergen) => allergen.allergenId === 2004)}
+                      onChange={handleCheckboxChangeAlrg}
+                    />
+                    <label htmlFor='allergenMilkCheckbox'>Soy</label>
+                    <br />
                 </label>
                 <label className='sub-label'>
-                    <input 
-                        type='checkbox'
-                        name='2005'
-                        checked={recipe.allergens.includes('2005')}
-                        onChange={handleCheckboxChangeAlrg}></input> Wheat <br />
+                  <input
+                      type='checkbox'
+                      id='allergenWheatCheckbox'
+                      checked={recipe.allergens.some((allergen) => allergen.allergenId === 2005)}
+                      onChange={handleCheckboxChangeAlrg}
+                    />
+                    <label htmlFor='allergenMilkCheckbox'>Wheat</label>
+                    <br />
                 </label>
                 <label className='sub-label'>
-                    <input 
-                        type='checkbox' 
-                        name='2006' 
-                        checked={recipe.allergens.includes('2006')}
-                        onChange={handleCheckboxChangeAlrg}></input> Shellfish <br />
+                  <input
+                      type='checkbox'
+                      id='allergenShellfishCheckbox'
+                      checked={recipe.allergens.some((allergen) => allergen.allergenId === 2006)}
+                      onChange={handleCheckboxChangeAlrg}
+                    />
+                    <label htmlFor='allergenMilkCheckbox'>Shellfish</label>
+                    <br />
                 </label>
                 <label className='sub-label'>
-                    <input 
-                        type='checkbox' 
-                        name='2007' 
-                        checked={recipe.allergens.includes('2007')}
-                        onChange={handleCheckboxChangeAlrg}></input> Fish <br /> 
+                  <input
+                      type='checkbox'
+                      id='allergenFishCheckbox'
+                      checked={recipe.allergens.some((allergen) => allergen.allergenId === 2007)}
+                      onChange={handleCheckboxChangeAlrg}
+                    />
+                    <label htmlFor='allergenMilkCheckbox'>Fish</label>
+                    <br /> 
                 </label>
                 <label className='sub-label'>
-                    <input 
-                        type='checkbox' 
-                        name='2008' 
-                        checked={recipe.allergens.includes('2008')}
-                        onChange={handleCheckboxChangeAlrg}></input> None <br /> 
+                  <input
+                      type='checkbox'
+                      id='allergenNoneCheckbox'
+                      checked={recipe.allergens.some((allergen) => allergen.allergenId === 2008)}
+                      onChange={handleCheckboxChangeAlrg}
+                    />
+                    <label htmlFor='allergenMilkCheckbox'>None</label>
+                    <br /> 
                 </label>
 
                 <label> Protein Options: <br />
