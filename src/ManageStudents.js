@@ -6,6 +6,7 @@ import {AuthContext, useAuth} from  './context/AuthProvider';
 import axios from './api/axios';
 
 const ManageStudents = () => {
+  const URL = 'http://localhost:80';
   const [userData, setUserData] = useState({
     nutritionUserId: '',
     firstName: '',

@@ -60,7 +60,7 @@ const AllRecipes = () => {
   };
 
   const renderTableData = () => {
-    return recipes.map((recipe, index) => {
+    return recipes.map((recipe) => {
       const { recipeId, title, status, recipeOwner } = recipe;
       return (
         <tr key={recipeId}>

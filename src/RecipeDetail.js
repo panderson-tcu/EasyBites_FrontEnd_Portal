@@ -36,6 +36,9 @@ const RecipeDetails = () => {
     },
   };
 
+  const isAdmin = auth && auth.roles === 'admin';
+  const isRecipeOwner = auth && auth.id == recipe?.recipeOwner?.nutritionUserId;
+
   useEffect(() => {
     const fetchRecipeDetails = async () => {
       axios.get(`http://localhost:80/recipes/${recipeId}`, config)
@@ -157,13 +160,19 @@ const RecipeDetails = () => {
         <p className='info-header'> Status: </p> <p className='info-details'> {recipe.status}</p>
 
         {/* <Link to="/EditRecipe" onClick={handleEditClick} className='submit'>Edit Recipe</Link> */}
-        <Link to={`/recipe/${recipeId}/edit`} className='edit'>Edit Recipe</Link>
-
-        <label className='change'>Change Status:</label>
-        <div class="button-container">
-          <button onClick={statusApprove} className='approved'>Approve</button> 
-          <button onClick={statusDecline} className='declined'>Decline</button>
-        </div>
+        {(isRecipeOwner || isAdmin) && (
+          <Link to={`/recipe/${recipeId}/edit`} className='edit'>Edit Recipe</Link>
+        )}
+       
+       {isAdmin && (
+          <label className='change'>Change Status:</label>
+        )}
+        {isAdmin && (
+          <div class="button-container">
+            <button onClick={statusApprove} className='approved'>Approve</button> 
+            <button onClick={statusDecline} className='declined'>Decline</button>
+          </div>
+        )}
     </div>
  </div>
   );
