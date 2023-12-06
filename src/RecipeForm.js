@@ -24,7 +24,6 @@ const RecipeForm = () => {
       const { auth, setAuth } = useAuth()
       console.log("printing auth information")
       console.log(auth.user)
-      console.log(auth.pwd)
       console.log(auth.roles)
       console.log(auth.accessToken)
 
@@ -216,7 +215,8 @@ const RecipeForm = () => {
                 </label>
 
                 <label> Protein Options: <br />
-                    <select name='protein'
+                    <select
+                    name='protein'
                     value={formData.protein}
                     onChange={handleInputChange}>
                         <option value="None">Select</option>
@@ -231,7 +231,8 @@ const RecipeForm = () => {
 
                 <label>
                     Cook Time:</label> <label className='sub-label'> Recipe time refers to the time in minutes needed to cook recipe and preparation process time combine.
-                    <select name='cookTime'
+                    <select 
+                        name='cookTime'
                         value={formData.cookTime}
                         onChange={handleInputChange}>
                         <option value="option">Select</option>
@@ -259,12 +260,15 @@ const RecipeForm = () => {
                         12 oz Chocolate Chips<br/>
                         1 1/2 Tbsp Baking Powder<br/>
                         <textarea  
+                        className='ingrediants-quantity-textarea'
                         name='ingredientQuantity'
                         value={formData.ingredientQuantity}
                         onChange={handleInputChange}></textarea>      
                 </label>
                 <label>UPC Value:</label><label className='sub-label'>Located on Kroger.com. Please specify each ingredient in a seperate line. Please include the Kroger UPC value from the store website. <br/> Examples: <br/> 0001111050158 <br/> 0001111096920 <br /> 0001111096921
-                    <textarea name='upcValues'
+                    <textarea 
+                        className='upc-textarea'
+                        name='upcValues'
                         value={formData.upcValues}
                         onChange={handleInputChange}></textarea>      
                 </label>
@@ -272,7 +276,9 @@ const RecipeForm = () => {
                     Based off the list of Ingredients on the Kroger website, What is the total estimated cost for this recipe with two decimals? Please DO NOT include dollar signs or any other characters.<br/>
                         Example 1: 20.50<br/>
                         Example 2: 10.00
-                    <textarea  name='cost'
+                    <textarea 
+                    className='cost-textarea'
+                    name='cost'
                     value={formData.cost}
                     onChange={handleInputChange}></textarea>      
                 </label>
@@ -341,7 +347,9 @@ const RecipeForm = () => {
                         Preheat oven to 350 F.<br/>
                         Add milk, eggs, and oil to a large bowl.<br/>
                         Combine wet and dry ingredients.
-                    <textarea  name='instructions'
+                    <textarea 
+                    className='instructions-textarea' 
+                    name='instructions'
                     value={formData.instructions}
                     onChange={handleInputChange}></textarea>      
                 </label>

@@ -26,8 +26,9 @@ setGlobalFont('Arial');
 function setGlobalSubFont(fontFamily) {
   const style = document.createElement('style');
   style.innerHTML = `
-      input, select, button, Link {
+      input, select, button, Link, textarea {
           font-family: ${fontFamily}, sans-serif;
+          font-size: 20px;
       }
   `;
   document.head.appendChild(style);

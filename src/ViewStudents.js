@@ -10,7 +10,6 @@ const ViewStudents = () => {
   const { auth, setAuth } = useAuth()
   console.log("printing auth information")
   console.log(auth.user)
-  console.log(auth.pwd)
   console.log(auth.roles)
   console.log(auth.accessToken)
 
@@ -71,7 +70,7 @@ const ViewStudents = () => {
       <NavBar />
       <div className='container'>
         <h1 id='title'>All Students </h1>
-        <table id='students'>
+        <table className='studentTable' id='students'>
           <thead>{renderTableHeader()}</thead>
           <tbody>{renderTableData()}</tbody>
         </table>
