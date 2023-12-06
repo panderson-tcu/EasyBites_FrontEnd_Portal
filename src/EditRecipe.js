@@ -64,20 +64,20 @@ const EditRecipe = () => {
         servings: parseInt(recipe.servings),
         status: null,
         protein: {
-          proteinId: recipe?.protein?.proteinId,
+          proteinId: recipe?.protein,
         },
         recipeOwner: {
-          nutritionUserId: 110400159,
+          nutritionUserId: auth.id,
         },
         ingredients: 
           recipe.ingredients.map((ingredient) => ({
             upcValue: ingredient.upcValue,
           })),
         appliances: recipe.appliances.map((appliance) => ({
-          applianceId: appliance,
+          applianceId: appliance.applianceId,
         })),
         allergens: recipe.allergens.map((allergen) => ({
-          allergenId: allergen,
+          allergenId: allergen.allergenId,
         })),
         appUsers: [],
       };
@@ -87,23 +87,45 @@ const EditRecipe = () => {
     };
     
     
+      // const handleCheckboxChangeAlrg = (event) => {
+      //   const { name, checked } = event.target;
+      //   setFormData((prevFormData) => ({
+      //     ...prevFormData,
+      //     allergens: checked
+      //       ? [...prevFormData.allergens, name]
+      //       : prevFormData.allergens.filter((item) => item !== name),
+      //   }));
+      // };
+
       const handleCheckboxChangeAlrg = (event) => {
-        const { name, checked } = event.target;
+        const { name, checked, value } = event.target;
+        let newAllergen = {
+          allergenId: parseInt(value),
+          'name': name
+        }
         setFormData((prevFormData) => ({
           ...prevFormData,
           allergens: checked
-            ? [...prevFormData.allergens, name]
-            : prevFormData.allergens.filter((item) => item !== name),
+            ? [...prevFormData.allergens, newAllergen]
+            : prevFormData.allergens.filter(
+              (allergen) => allergen.allergenId !== newAllergen.allergenId
+            ),
         }));
       };
 
       const handleCheckboxChangeApli = (event) => {
-        const { name, checked } = event.target;
+        const { name, checked, value } = event.target;
+        let newAppliance = {
+          applianceId: parseInt(value),
+          'name': name
+        }
         setFormData((prevFormData) => ({
           ...prevFormData,
           appliances: checked
-            ? [...prevFormData.appliances, name]
-            : prevFormData.appliances.filter((item) => item !== name),
+            ? [...prevFormData.appliances, newAppliance]
+            : prevFormData.appliances.filter(
+              (appliance) => appliance.applianceId !== newAppliance.applianceId
+            ),
         }));
       };
     
@@ -132,6 +154,13 @@ const EditRecipe = () => {
             ingredients: newIngredients,
           }));
         } else {
+          // test
+          // const parsedValue = name === 'protein' ? parseInt(value, 10) : value;
+          // setFormData((prevFormData) => ({
+          //   ...prevFormData,
+          //   [name]: parsedValue,
+          // }));
+
           // For other fields, update the state as usual
           setFormData((prevFormData) => ({
             ...prevFormData,
@@ -178,6 +207,8 @@ const EditRecipe = () => {
                   <input
                       type='checkbox'
                       id='allergenMilkCheckbox'
+                      name='Milk'
+                      value='2000'
                       checked={recipe.allergens.some((allergen) => allergen.allergenId === 2000)}
                       onChange={handleCheckboxChangeAlrg}
                     />
@@ -188,6 +219,8 @@ const EditRecipe = () => {
                   <input
                       type='checkbox'
                       id='allergenEggCheckbox'
+                      name='Eggs'
+                      value='2001'
                       checked={recipe.allergens.some((allergen) => allergen.allergenId === 2001)}
                       onChange={handleCheckboxChangeAlrg}
                     />
@@ -198,6 +231,8 @@ const EditRecipe = () => {
                   <input
                       type='checkbox'
                       id='allergenPeanutCheckbox'
+                      name='Peanuts'
+                      value='2002'
                       checked={recipe.allergens.some((allergen) => allergen.allergenId === 2002)}
                       onChange={handleCheckboxChangeAlrg}
                     />
@@ -208,6 +243,8 @@ const EditRecipe = () => {
                   <input
                       type='checkbox'
                       id='allergenTreeNutsCheckbox'
+                      name='Tree Nuts'
+                      value='2003'
                       checked={recipe.allergens.some((allergen) => allergen.allergenId === 2003)}
                       onChange={handleCheckboxChangeAlrg}
                     />
@@ -218,6 +255,8 @@ const EditRecipe = () => {
                   <input
                       type='checkbox'
                       id='allergenSoyCheckbox'
+                      name='Soy'
+                      value='2004'
                       checked={recipe.allergens.some((allergen) => allergen.allergenId === 2004)}
                       onChange={handleCheckboxChangeAlrg}
                     />
@@ -228,6 +267,8 @@ const EditRecipe = () => {
                   <input
                       type='checkbox'
                       id='allergenWheatCheckbox'
+                      name='Wheat'
+                      value='2005'
                       checked={recipe.allergens.some((allergen) => allergen.allergenId === 2005)}
                       onChange={handleCheckboxChangeAlrg}
                     />
@@ -238,6 +279,8 @@ const EditRecipe = () => {
                   <input
                       type='checkbox'
                       id='allergenShellfishCheckbox'
+                      name='Shellfish'
+                      value='2006'
                       checked={recipe.allergens.some((allergen) => allergen.allergenId === 2006)}
                       onChange={handleCheckboxChangeAlrg}
                     />
@@ -248,6 +291,8 @@ const EditRecipe = () => {
                   <input
                       type='checkbox'
                       id='allergenFishCheckbox'
+                      name='Fish'
+                      value='2007'
                       checked={recipe.allergens.some((allergen) => allergen.allergenId === 2007)}
                       onChange={handleCheckboxChangeAlrg}
                     />
@@ -258,6 +303,8 @@ const EditRecipe = () => {
                   <input
                       type='checkbox'
                       id='allergenNoneCheckbox'
+                      name='None'
+                      value='2008'
                       checked={recipe.allergens.some((allergen) => allergen.allergenId === 2008)}
                       onChange={handleCheckboxChangeAlrg}
                     />
@@ -333,17 +380,17 @@ const EditRecipe = () => {
                     <input 
                         type='checkbox'
                         id='applianceAirFryerCheckbox'
-                        name='3000'
                         value='3000'
+                        name='Air Fryer'
                         checked={recipe.appliances.some((appliance)=> appliance.applianceId === 3000)}
-                        onChange={handleCheckboxChangeApli}></input> Air fryer <br />
+                        onChange={handleCheckboxChangeApli}></input> Air Fryer <br />
                 </label>
                 <label className='sub-label'>
                     <input 
                         type='checkbox'
                         id='applianceCrockpotCheckbox' 
-                        name='3001' 
-                        value='3001'
+                        value='3001' 
+                        name='Crockpot'
                         checked={recipe.appliances.some((appliance)=>appliance.applianceId === 3001)}
                         onChange={handleCheckboxChangeApli}></input> Crockpot <br />
                 </label>
@@ -351,8 +398,8 @@ const EditRecipe = () => {
                     <input 
                         type='checkbox'
                         id='applianceStoveCheckbox'
-                        name='3002' 
-                        value='3002'
+                        value='3002' 
+                        name='Stove'
                         checked={recipe.appliances.some((appliance)=>appliance.applianceId === 3002)}
                         onChange={handleCheckboxChangeApli}></input> Stove <br />
                 </label>
@@ -360,8 +407,8 @@ const EditRecipe = () => {
                     <input 
                         type='checkbox' 
                         id='applianceOvenCheckbox'
-                        name='3003' 
-                        value='3003'
+                        value='3003' 
+                        name='Oven'
                         checked={recipe.appliances.some((appliance)=>appliance.applianceId === 3003)}
                         onChange={handleCheckboxChangeApli}></input> Oven <br />
                 </label>
@@ -369,8 +416,8 @@ const EditRecipe = () => {
                     <input 
                         type='checkbox' 
                         id='applianceMicrowaveCheckbox'
-                        name='3004'
                         value='3004'
+                        name='Microwave'
                         checked={recipe.appliances.some((appliance)=>appliance.applianceId === 3004)}
                         onChange={handleCheckboxChangeApli}></input> Microwave <br />
                 </label>
@@ -378,8 +425,8 @@ const EditRecipe = () => {
                     <input 
                         type='checkbox'
                         id='applianceBlenderCheckbox'
-                        name='3005'
                         value='3005'
+                        name='Blender'
                         checked={recipe.appliances.some((appliance)=>appliance.applianceId === 3005)}
                         onChange={handleCheckboxChangeApli}></input> Blender <br />
                 </label>
@@ -387,8 +434,8 @@ const EditRecipe = () => {
                     <input 
                         type='checkbox' 
                         id='applianceInstantPotCheckbox'
-                        name='3006' 
-                        value='3006'
+                        value='3006' 
+                        name='Instant Pot'
                         checked={recipe.appliances.some((appliance)=>appliance.applianceId === 3006)}
                         onChange={handleCheckboxChangeApli}></input> Instant Pot <br />
                 </label>
@@ -396,8 +443,8 @@ const EditRecipe = () => {
                     <input 
                         type='checkbox' 
                         id='applianceNoneCheckbox'
-                        name='3007' 
-                        value='3007'
+                        value='3007' 
+                        name='None'
                         checked={recipe.appliances.some((appliance)=>appliance.applianceId === 3007)}
                         onChange={handleCheckboxChangeApli}></input> None <br /> 
                 </label>
