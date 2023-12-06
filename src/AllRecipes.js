@@ -3,18 +3,25 @@ import './AllRecipes.css';
 import { Link } from 'react-router-dom';
 import axios from './api/axios';
 import NavBar from './components/NavBar';
+import {AuthContext, useAuth} from  './context/AuthProvider';
+
 
 const AllRecipes = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [recipes, setRecipes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 15;
   const [searchClicked, setSearchClicked] = useState(false); 
-
+  const { auth, setAuth } = useAuth()
+  const config = {
+    headers: {
+      Authorization: `Bearer ${auth.accessToken}`,
+    },
+  };
 
   const fetchAllRecipes = () => {
-    axios.get('/recipes')
+    axios.get('/recipes', config)
       .then(response => {
         const data = response.data;
         if (data && Array.isArray(data.data)) {

@@ -50,7 +50,7 @@ const Login = () => {
       const name = response?.data?.data?.userInfo?.firstName + ' ' + response?.data?.data?.userInfo?.lastName;
       console.log("Nutrition student id" + id)
 
-      setAuth({ user, pwd, roles, id, accessToken, name });
+      setAuth({ user, roles, id, accessToken, name });
       setUser('');
       setPwd('');
       setSuccess(true);

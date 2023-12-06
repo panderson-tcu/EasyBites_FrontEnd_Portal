@@ -3,14 +3,13 @@ import './ViewStudents.css';
 import NavBar from './components/NavBar';
 import { Link } from 'react-router-dom';
 import {AuthContext, useAuth} from  './context/AuthProvider';
-
+import axios from './api/axios';
 
 const ViewStudents = () => {
   const [students, setStudents] = useState([]);
   const { auth, setAuth } = useAuth()
   console.log("printing auth information")
   console.log(auth.user)
-  console.log(auth.pwd)
   console.log(auth.roles)
   console.log(auth.accessToken)
 

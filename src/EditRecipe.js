@@ -25,7 +25,6 @@ const EditRecipe = () => {
   const { auth, setAuth } = useAuth()
   console.log("printing auth information in edit-recipe page")
   console.log(auth.user)
-  console.log(auth.pwd)
   console.log(auth.roles)
   console.log(auth.accessToken)
 
@@ -155,19 +154,6 @@ const EditRecipe = () => {
           .catch(error => {
             console.error('Error submitting recipe:', error);
           })
-
-        // try {
-        //   const response = await fetch(`http://localhost:80/recipes/${recipeId}`, {
-        //     method: 'PUT',
-        //     headers: {
-        //       'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(handleSendData(recipe)), 
-        //   });
-    
-        // } catch (error) {
-        //   console.error('Error submitting recipe:', error);
-        // }
       };
 
       return (
@@ -189,67 +175,94 @@ const EditRecipe = () => {
                 <label htmlFor="multipleSelect">Allergren Options:</label>
                 <label className='sub-label'>Select all allergens that are in the Recipe <br /> ex. Pasta conatinas wheat so select wheat</label>
                 <label className='sub-label'>
-                    <input 
-                        type='checkbox'
-                        name='2000'
-                        checked={recipe.allergens.includes('2000')}
-                        onChange={handleCheckboxChangeAlrg}></input> Milk <br />
+                  <input
+                      type='checkbox'
+                      id='allergenMilkCheckbox'
+                      checked={recipe.allergens.some((allergen) => allergen.allergenId === 2000)}
+                      onChange={handleCheckboxChangeAlrg}
+                    />
+                    Milk
+                    <br />
                 </label>
                 <label className='sub-label'>
-                    <input 
-                        type='checkbox' 
-                        name='2001' 
-                        checked={recipe.allergens.includes('2001')}
-                        onChange={handleCheckboxChangeAlrg}></input> Eggs <br />
+                  <input
+                      type='checkbox'
+                      id='allergenEggCheckbox'
+                      checked={recipe.allergens.some((allergen) => allergen.allergenId === 2001)}
+                      onChange={handleCheckboxChangeAlrg}
+                    />
+                    Eggs
+                    <br />
                 </label>
                 <label className='sub-label'>
-                    <input 
-                        type='checkbox' 
-                        name='2002' 
-                        checked={recipe.allergens.includes('2002')}
-                        onChange={handleCheckboxChangeAlrg}></input> Peanuts <br />
+                  <input
+                      type='checkbox'
+                      id='allergenPeanutCheckbox'
+                      checked={recipe.allergens.some((allergen) => allergen.allergenId === 2002)}
+                      onChange={handleCheckboxChangeAlrg}
+                    />
+                    Peanuts
+                    <br />
                 </label>
                 <label className='sub-label'>
-                    <input 
-                        type='checkbox' 
-                        name='2003' 
-                        checked={recipe.allergens.includes('2003')}
-                        onChange={handleCheckboxChangeAlrg}></input> Tree Nuts <br />
+                  <input
+                      type='checkbox'
+                      id='allergenTreeNutsCheckbox'
+                      checked={recipe.allergens.some((allergen) => allergen.allergenId === 2003)}
+                      onChange={handleCheckboxChangeAlrg}
+                    />
+                    Tree Nuts
+                    <br />
                 </label>
                 <label className='sub-label'>
-                    <input 
-                        type='checkbox' 
-                        name='2004'
-                        checked={recipe.allergens.includes('2004')}
-                        onChange={handleCheckboxChangeAlrg}></input> Soy <br />
+                  <input
+                      type='checkbox'
+                      id='allergenSoyCheckbox'
+                      checked={recipe.allergens.some((allergen) => allergen.allergenId === 2004)}
+                      onChange={handleCheckboxChangeAlrg}
+                    />
+                    Soy
+                    <br />
                 </label>
                 <label className='sub-label'>
-                    <input 
-                        type='checkbox'
-                        name='2005'
-                        checked={recipe.allergens.includes('2005')}
-                        onChange={handleCheckboxChangeAlrg}></input> Wheat <br />
+                  <input
+                      type='checkbox'
+                      id='allergenWheatCheckbox'
+                      checked={recipe.allergens.some((allergen) => allergen.allergenId === 2005)}
+                      onChange={handleCheckboxChangeAlrg}
+                    />
+                    Wheat
+                    <br />
                 </label>
                 <label className='sub-label'>
-                    <input 
-                        type='checkbox' 
-                        name='2006' 
-                        checked={recipe.allergens.includes('2006')}
-                        onChange={handleCheckboxChangeAlrg}></input> Shellfish <br />
+                  <input
+                      type='checkbox'
+                      id='allergenShellfishCheckbox'
+                      checked={recipe.allergens.some((allergen) => allergen.allergenId === 2006)}
+                      onChange={handleCheckboxChangeAlrg}
+                    />
+                    Shellfish
+                    <br />
                 </label>
                 <label className='sub-label'>
-                    <input 
-                        type='checkbox' 
-                        name='2007' 
-                        checked={recipe.allergens.includes('2007')}
-                        onChange={handleCheckboxChangeAlrg}></input> Fish <br /> 
+                  <input
+                      type='checkbox'
+                      id='allergenFishCheckbox'
+                      checked={recipe.allergens.some((allergen) => allergen.allergenId === 2007)}
+                      onChange={handleCheckboxChangeAlrg}
+                    />
+                    Fish
+                    <br /> 
                 </label>
                 <label className='sub-label'>
-                    <input 
-                        type='checkbox' 
-                        name='2008' 
-                        checked={recipe.allergens.includes('2008')}
-                        onChange={handleCheckboxChangeAlrg}></input> None <br /> 
+                  <input
+                      type='checkbox'
+                      id='allergenNoneCheckbox'
+                      checked={recipe.allergens.some((allergen) => allergen.allergenId === 2008)}
+                      onChange={handleCheckboxChangeAlrg}
+                    />
+                    None
+                    <br /> 
                 </label>
 
                 <label> Protein Options: <br />
@@ -319,65 +332,73 @@ const EditRecipe = () => {
                 <label className='sub-label'>
                     <input 
                         type='checkbox'
+                        id='applianceAirFryerCheckbox'
                         name='3000'
                         value='3000'
-                        checked={recipe.appliances.includes('3000')}
+                        checked={recipe.appliances.some((appliance)=> appliance.applianceId === 3000)}
                         onChange={handleCheckboxChangeApli}></input> Air fryer <br />
                 </label>
                 <label className='sub-label'>
                     <input 
-                        type='checkbox' 
+                        type='checkbox'
+                        id='applianceCrockpotCheckbox' 
                         name='3001' 
                         value='3001'
-                        checked={recipe.appliances.includes('3001')}
+                        checked={recipe.appliances.some((appliance)=>appliance.applianceId === 3001)}
                         onChange={handleCheckboxChangeApli}></input> Crockpot <br />
                 </label>
                 <label className='sub-label'>
                     <input 
-                        type='checkbox' 
+                        type='checkbox'
+                        id='applianceStoveCheckbox'
                         name='3002' 
                         value='3002'
-                        checked={recipe.appliances.includes('3002')}
+                        checked={recipe.appliances.some((appliance)=>appliance.applianceId === 3002)}
                         onChange={handleCheckboxChangeApli}></input> Stove <br />
                 </label>
                 <label className='sub-label'>
                     <input 
                         type='checkbox' 
+                        id='applianceOvenCheckbox'
                         name='3003' 
                         value='3003'
-                        checked={recipe.appliances.includes('3003')}
+                        checked={recipe.appliances.some((appliance)=>appliance.applianceId === 3003)}
                         onChange={handleCheckboxChangeApli}></input> Oven <br />
                 </label>
                 <label className='sub-label'>
                     <input 
                         type='checkbox' 
+                        id='applianceMicrowaveCheckbox'
                         name='3004'
                         value='3004'
-                        checked={recipe.appliances.includes('3004')}
+                        checked={recipe.appliances.some((appliance)=>appliance.applianceId === 3004)}
                         onChange={handleCheckboxChangeApli}></input> Microwave <br />
                 </label>
                 <label className='sub-label'>
                     <input 
                         type='checkbox'
+                        id='applianceBlenderCheckbox'
                         name='3005'
                         value='3005'
-                        checked={recipe.appliances.includes('3005')}
+                        checked={recipe.appliances.some((appliance)=>appliance.applianceId === 3005)}
                         onChange={handleCheckboxChangeApli}></input> Blender <br />
                 </label>
                 <label className='sub-label'>
                     <input 
                         type='checkbox' 
+                        id='applianceInstantPotCheckbox'
                         name='3006' 
                         value='3006'
-                        checked={recipe.appliances.includes('3006')}
+                        checked={recipe.appliances.some((appliance)=>appliance.applianceId === 3006)}
                         onChange={handleCheckboxChangeApli}></input> Instant Pot <br />
                 </label>
                 <label className='sub-label'>
                     <input 
                         type='checkbox' 
+                        id='applianceNoneCheckbox'
                         name='3007' 
                         value='3007'
-                        checked={recipe.appliances.includes('3007')}
+                        checked={recipe.appliances.some((appliance)=>appliance.applianceId === 3007)}
                         onChange={handleCheckboxChangeApli}></input> None <br /> 
                 </label>
                 <label>

@@ -24,7 +24,6 @@ const RecipeForm = () => {
       const { auth, setAuth } = useAuth()
       console.log("printing auth information")
       console.log(auth.user)
-      console.log(auth.pwd)
       console.log(auth.roles)
       console.log(auth.accessToken)
 
