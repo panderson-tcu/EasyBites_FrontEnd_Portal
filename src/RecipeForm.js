@@ -100,15 +100,40 @@ const RecipeForm = () => {
       };
     
     
+      // const handleCheckboxChangeAlrg = (event) => {
+      //   const { name, checked } = event.target;
+
+      //   if (name == '2008' && checked)
+      //   setFormData((prevFormData) => ({
+      //     ...prevFormData,
+      //     allergens: checked
+      //       ? [...prevFormData.allergens, name]
+      //       : prevFormData.allergens.filter((item) => item !== name),
+      //   }));
+      // };
+
       const handleCheckboxChangeAlrg = (event) => {
         const { name, checked } = event.target;
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          allergens: checked
-            ? [...prevFormData.allergens, name]
-            : prevFormData.allergens.filter((item) => item !== name),
-        }));
-      };
+    
+        setFormData((prevFormData) => {
+            if (name === '2008' && checked) {
+                // If "None" is selected, unselect all other options
+                return {
+                    ...prevFormData,
+                    allergens: [name],
+                };
+            } else {
+                // Handle other options as usual
+                return {
+                    ...prevFormData,
+                    allergens: checked
+                        ? [...prevFormData.allergens.filter(item => item !== '2008'), name]
+                        : prevFormData.allergens.filter((item) => item !== name),
+                };
+            }
+        });
+    };
+    
 
       const handleCheckboxChangeApli = (event) => {
         const { name, checked } = event.target;
@@ -144,67 +169,89 @@ const RecipeForm = () => {
                         type='text'
                         name='title'
                         value={formData.title}
-                        onChange={handleInputChange}>
+                        onChange={handleInputChange}
+                        required>
                     </input>
                 </label>
                
-                <label htmlFor="multipleSelect">Allergren Options:</label>
-                <label className='sub-label'>Select all allergens that are in the Recipe <br /> ex. Pasta conatinas wheat so select wheat</label>
+                <label htmlFor="multipleSelect">Allergen Options:</label>
+                <label className='sub-label'>Select all allergens that are in the Recipe <br /> Example: Pasta conatins wheat, so select wheat</label>
                 <label className='sub-label'>
                     <input 
                         type='checkbox'
                         name='2000'
                         checked={formData.allergens.includes('2000')}
-                        onChange={handleCheckboxChangeAlrg}></input> Milk <br />
+                        onChange={handleCheckboxChangeAlrg}
+                        disabled={formData.allergens.includes('2008')}>
+                      </input> 
+                      Milk <br />
                 </label>
                 <label className='sub-label'>
                     <input 
                         type='checkbox' 
                         name='2001' 
                         checked={formData.allergens.includes('2001')}
-                        onChange={handleCheckboxChangeAlrg}></input> Eggs <br />
+                        onChange={handleCheckboxChangeAlrg}
+                        disabled={formData.allergens.includes('2008')}
+                        >
+                    </input> 
+                    Eggs <br />
                 </label>
                 <label className='sub-label'>
                     <input 
                         type='checkbox' 
                         name='2002' 
                         checked={formData.allergens.includes('2002')}
-                        onChange={handleCheckboxChangeAlrg}></input> Peanuts <br />
+                        onChange={handleCheckboxChangeAlrg}
+                        disabled={formData.allergens.includes('2008')}>
+                    </input> 
+                    Peanuts <br />
                 </label>
                 <label className='sub-label'>
                     <input 
                         type='checkbox' 
                         name='2003' 
                         checked={formData.allergens.includes('2003')}
-                        onChange={handleCheckboxChangeAlrg}></input> Tree Nuts <br />
+                        onChange={handleCheckboxChangeAlrg}
+                        disabled={formData.allergens.includes('2008')}>
+                    </input> 
+                    Tree Nuts <br />
                 </label>
                 <label className='sub-label'>
                     <input 
                         type='checkbox' 
                         name='2004'
                         checked={formData.allergens.includes('2004')}
-                        onChange={handleCheckboxChangeAlrg}></input> Soy <br />
+                        onChange={handleCheckboxChangeAlrg}
+                        disabled={formData.allergens.includes('2008')}>
+                        </input> Soy <br />
                 </label>
                 <label className='sub-label'>
                     <input 
                         type='checkbox'
                         name='2005'
                         checked={formData.allergens.includes('2005')}
-                        onChange={handleCheckboxChangeAlrg}></input> Wheat <br />
+                        onChange={handleCheckboxChangeAlrg}
+                        disabled={formData.allergens.includes('2008')}
+                        ></input> Wheat <br />
                 </label>
                 <label className='sub-label'>
                     <input 
                         type='checkbox' 
                         name='2006' 
                         checked={formData.allergens.includes('2006')}
-                        onChange={handleCheckboxChangeAlrg}></input> Shellfish <br />
+                        onChange={handleCheckboxChangeAlrg}
+                        disabled={formData.allergens.includes('2008')}
+                        ></input> Shellfish <br />
                 </label>
                 <label className='sub-label'>
                     <input 
                         type='checkbox' 
                         name='2007' 
                         checked={formData.allergens.includes('2007')}
-                        onChange={handleCheckboxChangeAlrg}></input> Fish <br /> 
+                        onChange={handleCheckboxChangeAlrg}
+                        disabled={formData.allergens.includes('2008')}
+                        ></input> Fish <br /> 
                 </label>
                 <label className='sub-label'>
                     <input 
@@ -218,8 +265,9 @@ const RecipeForm = () => {
                     <select
                     name='protein'
                     value={formData.protein}
-                    onChange={handleInputChange}>
-                        <option value="None">Select</option>
+                    onChange={handleInputChange}
+                    required>
+                        <option value="" disabled>Select</option>
                         <option value="1000">Chicken</option>
                         <option value="1001">Beef</option>
                         <option value="1002">Pork</option>
@@ -230,12 +278,13 @@ const RecipeForm = () => {
                 </label>
 
                 <label>
-                    Cook Time:</label> <label className='sub-label'> Recipe time refers to the time in minutes needed to cook recipe and preparation process time combine.
+                    Cook Time:</label> <label className='sub-label'> Recipe time refers to the total time in minutes needed to make the entire recipe.
                     <select 
                         name='cookTime'
                         value={formData.cookTime}
-                        onChange={handleInputChange}>
-                        <option value="option">Select</option>
+                        onChange={handleInputChange}
+                        required>
+                        <option value="" disabled>Select</option>
                         <option value="5">5</option>
                         <option value="10">10</option>
                         <option value="15">15</option>
@@ -263,14 +312,16 @@ const RecipeForm = () => {
                         className='ingrediants-quantity-textarea'
                         name='ingredientQuantity'
                         value={formData.ingredientQuantity}
-                        onChange={handleInputChange}></textarea>      
+                        onChange={handleInputChange}
+                        required></textarea>      
                 </label>
                 <label>UPC Value:</label><label className='sub-label'>Located on Kroger.com. Please specify each ingredient in a seperate line. Please include the Kroger UPC value from the store website. <br/> Examples: <br/> 0001111050158 <br/> 0001111096920 <br /> 0001111096921
                     <textarea 
                         className='upc-textarea'
                         name='upcValues'
                         value={formData.upcValues}
-                        onChange={handleInputChange}></textarea>      
+                        onChange={handleInputChange}
+                        required></textarea>      
                 </label>
                 <label>Estimated Ingredients Cost:</label><label className='sub-label'>
                     Based off the list of Ingredients on the Kroger website, What is the total estimated cost for this recipe with two decimals? Please DO NOT include dollar signs or any other characters.<br/>
@@ -280,7 +331,8 @@ const RecipeForm = () => {
                     className='cost-textarea'
                     name='cost'
                     value={formData.cost}
-                    onChange={handleInputChange}></textarea>      
+                    onChange={handleInputChange}
+                    reequired></textarea>      
                 </label>
 
                 <label htmlFor="multipleSelect">Appliance Selection:</label>
@@ -351,7 +403,8 @@ const RecipeForm = () => {
                     className='instructions-textarea' 
                     name='instructions'
                     value={formData.instructions}
-                    onChange={handleInputChange}></textarea>      
+                    onChange={handleInputChange}
+                    required></textarea>      
                 </label>
 
                 <label>
@@ -359,8 +412,9 @@ const RecipeForm = () => {
                     <select
                     name='servings'
                     value={formData.servings}
-                    onChange={handleInputChange}>
-                        <option value="">Select</option>
+                    onChange={handleInputChange}
+                    required>
+                        <option value="" disabled>Select</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
