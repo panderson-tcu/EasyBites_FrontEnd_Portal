@@ -79,6 +79,7 @@ const RecipeDetails = () => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${auth.accessToken}`,
         },
         body: JSON.stringify({ status: 'approved' }),
       });
@@ -112,6 +113,7 @@ const RecipeDetails = () => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${auth.accessToken}`,
         },
         body: JSON.stringify({ status: 'declined' }),
       });

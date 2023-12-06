@@ -8,6 +8,9 @@ import {AuthContext, useAuth} from  './context/AuthProvider';
 
 const AllRecipes = () => {
   const [recipes, setRecipes] = useState([]);
+
+  const URL = '/recipes';
+
   const { auth, setAuth } = useAuth()
   console.log("printing auth information")
   console.log(auth.user)
@@ -23,14 +26,12 @@ const AllRecipes = () => {
     },
   };
 
-  const URL = '/recipes/nutrition-user/';
-
   useEffect(() => {
     fetchAllRecipes();
   }, []);
 
   const fetchAllRecipes = () => {
-    axios.get(URL+auth.id, config)
+    axios.get(URL+'/nutrition-user/'+auth.id, config)
       .then(response => {
         const data = response.data;
         if (data && Array.isArray(data.data)) {

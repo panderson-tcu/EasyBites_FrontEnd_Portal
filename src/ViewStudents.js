@@ -3,7 +3,7 @@ import './ViewStudents.css';
 import NavBar from './components/NavBar';
 import { Link } from 'react-router-dom';
 import {AuthContext, useAuth} from  './context/AuthProvider';
-
+import axios from './api/axios';
 
 const ViewStudents = () => {
   const [students, setStudents] = useState([]);
