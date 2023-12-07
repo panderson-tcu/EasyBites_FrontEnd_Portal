@@ -63,6 +63,7 @@ const EditRecipe = () => {
         instructions: recipe.instructions,
         servings: parseInt(recipe.servings),
         status: null,
+        // protein: recipe?.protein,
         protein: {
           proteinId: recipe?.protein,
         },
@@ -153,7 +154,11 @@ const EditRecipe = () => {
             ...prevFormData,
             ingredients: newIngredients,
           }));
-        } else {
+        } 
+        // if(name==='protein') {
+
+        // }
+        else {
           // test
           // const parsedValue = name === 'protein' ? parseInt(value, 10) : value;
           // setFormData((prevFormData) => ({
