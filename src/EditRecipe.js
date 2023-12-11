@@ -157,9 +157,16 @@ const EditRecipe = () => {
             ingredients: newIngredients,
           }));
         } 
-        // if(name==='protein') {
-
-        // }
+        else if(name==='protein') {
+          let newProtein = {
+            proteinId: parseInt(value),
+            // 'name': name
+          }
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            protein: newProtein
+          }));
+        }
         else {
           // test
           // const parsedValue = name === 'protein' ? parseInt(value, 10) : value;
@@ -324,12 +331,12 @@ const EditRecipe = () => {
                     value={recipe.protein.proteinId}
                     onChange={handleInputChange}>
                         <option value="None">Select</option>
-                        <option value="1000">Chicken</option>
-                        <option value="1001">Beef</option>
-                        <option value="1002">Pork</option>
-                        <option value="1004">Seafood</option>
-                        <option value="1003">Tofu</option>
-                        <option value="1005">None</option>
+                        <option value="1000" name="Chicken">Chicken</option>
+                        <option value="1001" name="Beef">Beef</option>
+                        <option value="1002" name="Pork">Pork</option>
+                        <option value="1004" name="Seafood">Seafood</option>
+                        <option value="1003" name="Tofu">Tofu</option>
+                        <option value="1005" name="None">None</option>
                     </select>
                 </label>
 
