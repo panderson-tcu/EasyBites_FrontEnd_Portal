@@ -90,7 +90,12 @@ const RecipeDetails = () => {
         console.log('Recipe status updated to Approved');
         setTimeout(async () => {
           try {
-            const updatedResponse = await fetch(`http://localhost:80/recipes/${recipeId}`);
+            const updatedResponse = await fetch(`http://localhost:80/recipes/${recipeId}`, {
+              method: 'GET',
+              headers: {
+                'Authorization': `Bearer ${auth.accessToken}`
+              }
+            });
             if (updatedResponse.ok) {
               const updatedRecipe = await updatedResponse.json();
               setRecipe(updatedRecipe.data);
@@ -124,7 +129,12 @@ const RecipeDetails = () => {
         console.log('Recipe status updated to Declined');
         setTimeout(async () => {
           try {
-            const updatedResponse = await fetch(`http://localhost:80/recipes/${recipeId}`);
+            const updatedResponse = await fetch(`http://localhost:80/recipes/${recipeId}`, {
+              method: 'GET',
+              headers: {
+                'Authorization': `Bearer ${auth.accessToken}`
+              }
+            });
             if (updatedResponse.ok) {
               const updatedRecipe = await updatedResponse.json();
               setRecipe(updatedRecipe.data);
