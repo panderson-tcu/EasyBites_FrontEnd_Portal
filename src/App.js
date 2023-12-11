@@ -10,6 +10,7 @@ import ViewStudents from './ViewStudents.js';
 import RecipeDetails from './RecipeDetail.js';
 import EditRecipe from './EditRecipe.js';
 import { AuthProvider } from './context/AuthProvider.js';
+import ViewUserRecipes from './ViewUserRecipes.js';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -36,7 +37,8 @@ const App = () => {
           <Route path='/UserRecipes' element={<UserRecipes />} />
           <Route path='/ViewStudents' element={<ViewStudents />} />
           <Route path="/recipe/:recipeId" element={<RecipeDetails />} />
-          <Route path="/recipe/:recipeId/edit" element={<EditRecipe />}/>      
+          <Route path="/recipe/:recipeId/edit" element={<EditRecipe />}/>
+          <Route path="/student/:nutritionUserId" element={<ViewUserRecipes />} />      
         </Routes>
       </Router>
     </AuthProvider>

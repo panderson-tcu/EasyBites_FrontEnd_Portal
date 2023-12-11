@@ -41,12 +41,19 @@ const ViewStudents = () => {
     return students.map((student) => {
       const { nutritionUserId, firstName, lastName, email, adminLevel } = student;
       return (
-        <tr key={nutritionUserId}>
-          <td>{firstName}</td>
-          <td>{lastName}</td>
-          <td>{email}</td>
-          <td>{adminLevel}</td>
-        </tr>
+          <tr key={nutritionUserId}>
+              <td>
+              <Link to={`/student/${nutritionUserId}`}>{firstName}</Link>
+              </td>
+              <td>
+              <Link to={`/student/${nutritionUserId}`}>{lastName}</Link></td>
+              <td>
+              <Link to={`/student/${nutritionUserId}`}>{email}</Link>
+              </td>
+              <td>
+                <Link to={`/student/${nutritionUserId}`}>{adminLevel}</Link>
+              </td>
+          </tr>
       );
     });
   };

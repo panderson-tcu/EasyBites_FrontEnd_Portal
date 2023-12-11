@@ -63,10 +63,10 @@ const EditRecipe = () => {
         instructions: recipe.instructions,
         servings: parseInt(recipe.servings),
         status: null,
-        // protein: recipe?.protein,
-        protein: {
-          proteinId: recipe?.protein,
-        },
+        protein: recipe?.protein,
+        // protein: {
+        //   proteinId: recipe?.protein,
+        // },
         recipeOwner: {
           nutritionUserId: auth.id,
         },
@@ -102,6 +102,7 @@ const EditRecipe = () => {
         const { name, checked, value } = event.target;
         let newAllergen = {
           allergenId: parseInt(value),
+          // allergenId: value,
           'name': name
         }
         setFormData((prevFormData) => ({
@@ -118,6 +119,7 @@ const EditRecipe = () => {
         const { name, checked, value } = event.target;
         let newAppliance = {
           applianceId: parseInt(value),
+          // applianceId: value,
           'name': name
         }
         setFormData((prevFormData) => ({
