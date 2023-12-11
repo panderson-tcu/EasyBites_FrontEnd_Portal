@@ -101,7 +101,8 @@ const EditRecipe = () => {
       const handleCheckboxChangeAlrg = (event) => {
         const { name, checked, value } = event.target;
         let newAllergen = {
-          allergenId: parseInt(value),
+          // allergenId: parseInt(value),
+          allergenId: value,
           'name': name
         }
         setFormData((prevFormData) => ({
@@ -117,7 +118,8 @@ const EditRecipe = () => {
       const handleCheckboxChangeApli = (event) => {
         const { name, checked, value } = event.target;
         let newAppliance = {
-          applianceId: parseInt(value),
+          // applianceId: parseInt(value),
+          applianceId: value,
           'name': name
         }
         setFormData((prevFormData) => ({
