@@ -13,8 +13,8 @@ const Login = () => {
   const { setAuth } = useContext(AuthContext);
   const userRef = useRef();
   const errRef = useRef();
-    // Use useNavigate to get the navigation function
-    const navigate = useNavigate();
+  // Use useNavigate to get the navigation function
+  const navigate = useNavigate();
 
   const [user, setUser] = useState('');
   const [pwd, setPwd] = useState('');
@@ -40,6 +40,7 @@ const Login = () => {
           }
         }
       );
+
       console.log(JSON.stringify(response?.data))
       // console.log(JSON.stringify(response))
       const accessToken = JSON.stringify(response?.data?.data?.token).replace(/["']/g, '');
@@ -50,7 +51,7 @@ const Login = () => {
       const name = response?.data?.data?.userInfo?.firstName + ' ' + response?.data?.data?.userInfo?.lastName;
       console.log("Nutrition student id" + id)
 
-      setAuth({ user, roles, id, accessToken, name });
+      setAuth({ user, roles, id, accessToken, name, isAuthenticated: true });
       setUser('');
       setPwd('');
       setSuccess(true);
