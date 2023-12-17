@@ -105,14 +105,25 @@ const EditRecipe = () => {
           // allergenId: value,
           'name': name
         }
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          allergens: checked
-            ? [...prevFormData.allergens, newAllergen]
-            : prevFormData.allergens.filter(
-              (allergen) => allergen.allergenId !== newAllergen.allergenId
-            ),
-        }));
+        setFormData((prevFormData) => {
+          if (value === '2008' && checked) {
+            // If "None" is selected, unselect all other options
+            return {
+                ...prevFormData,
+                allergens: [newAllergen],
+            };
+          }
+          else {
+            return {
+            ...prevFormData,
+            allergens: checked
+              ? [...prevFormData.allergens, newAllergen]
+              : prevFormData.allergens.filter(
+                (allergen) => allergen.allergenId !== newAllergen.allergenId
+              ),
+            }
+          }
+        });
       };
 
       const handleCheckboxChangeApli = (event) => {
@@ -145,7 +156,8 @@ const EditRecipe = () => {
       
         if (name === 'ingredients') {
           // Split the textarea value into an array of lines
-          const ingredientLines = value.split('\n');
+          const sanitizedValue = value.replace(/[^\d\n]+/g, (match) => (match.includes('\n') ? '\n' : ''));
+          const ingredientLines = sanitizedValue.split('\n');
       
           // Create a new array of ingredients using the upcValues from each line
           const newIngredients = ingredientLines.map((line) => ({
@@ -211,7 +223,8 @@ const EditRecipe = () => {
                         type='text'
                         name='title'
                         value={recipe.title}
-                        onChange={handleInputChange}>
+                        onChange={handleInputChange}
+                        required>
                     </input>
                 </label>
                
@@ -223,8 +236,10 @@ const EditRecipe = () => {
                       id='allergenMilkCheckbox'
                       name='Milk'
                       value='2000'
+                      // checks allergen if this allergen is in the json
                       checked={recipe.allergens.some((allergen) => allergen.allergenId === 2000)}
                       onChange={handleCheckboxChangeAlrg}
+                      disabled={recipe.allergens.some((allergen) => allergen.allergenId === 2008)}
                     />
                     Milk
                     <br />
@@ -329,8 +344,9 @@ const EditRecipe = () => {
                 <label> Protein Options: <br />
                     <select name='protein'
                     value={recipe.protein.proteinId}
-                    onChange={handleInputChange}>
-                        <option value="None">Select</option>
+                    onChange={handleInputChange}
+                    required>
+                        <option value="" disabled>Select</option>
                         <option value="1000" name="Chicken">Chicken</option>
                         <option value="1001" name="Beef">Beef</option>
                         <option value="1002" name="Pork">Pork</option>
@@ -345,7 +361,7 @@ const EditRecipe = () => {
                     <select name='cooktime'
                         value={recipe.cooktime}
                         onChange={handleInputChange}>
-                        <option value="option">Select</option>
+                        <option value="" disabled>Select</option>
                         <option value="5">5</option>
                         <option value="10">10</option>
                         <option value="15">15</option>
@@ -372,13 +388,15 @@ const EditRecipe = () => {
                         <textarea  
                         name='ingredientsQuantity'
                         value={recipe.ingredientsQuantity}
-                        onChange={handleInputChange}></textarea>      
+                        onChange={handleInputChange}
+                        required></textarea>      
                 </label>
                 <label>UPC Value:</label><label className='sub-label'>Located on Kroger.com. Please specify each ingredient in a seperate line. Please include the Kroger UPC value from the store website. <br/> Examples: <br/> 0001111050158 <br/> 0001111096920 <br /> 0001111096921
                     <textarea 
                         name='ingredients'
                         value={recipe.ingredients.map(ingredient => ingredient.upcValue).join('\n')}
-                        onChange={handleInputChange}></textarea>      
+                        onChange={handleInputChange}
+                        required></textarea>      
                 </label>
                 <label>Estimated Ingredients Cost:</label><label className='sub-label'>
                     Based off the list of Ingredients on the Kroger website, What is the total estimated cost for this recipe with two decimals? Please DO NOT include dollar signs or any other characters.<br/>
@@ -471,7 +489,8 @@ const EditRecipe = () => {
                         Combine wet and dry ingredients.
                     <textarea  name='instructions'
                     value={recipe.instructions}
-                    onChange={handleInputChange}></textarea>      
+                    onChange={handleInputChange}
+                    required></textarea>      
                 </label>
 
                 <label>
@@ -479,8 +498,9 @@ const EditRecipe = () => {
                     <select
                     name='servings'
                     value={recipe.servings}
-                    onChange={handleInputChange}>
-                        <option value="">Select</option>
+                    onChange={handleInputChange}
+                    required>
+                        <option value="" disabled>Select</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
