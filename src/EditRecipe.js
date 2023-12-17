@@ -133,23 +133,26 @@ const EditRecipe = () => {
           // applianceId: value,
           'name': name
         }
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          appliances: checked
-            ? [...prevFormData.appliances, newAppliance]
-            : prevFormData.appliances.filter(
-              (appliance) => appliance.applianceId !== newAppliance.applianceId
-            ),
-        }));
+        setFormData((prevFormData) => {
+          if (value === '3007' && checked) {
+            // If "None" is selected, unselect all other options
+            return {
+                ...prevFormData,
+                appliances: [newAppliance],
+            };
+          }
+          else {
+            return {
+            ...prevFormData,
+            appliances: checked
+              ? [...prevFormData.appliances, newAppliance]
+              : prevFormData.appliances.filter(
+                (appliance) => appliance.applianceId !== newAppliance.applianceId
+              ),
+            }
+          }
+        });
       };
-    
-      // const handleInputChange = (event) => {
-      //   const { name, value } = event.target;
-      //   setFormData((prevFormData) => ({
-      //     ...prevFormData,
-      //     [name]: value,
-      //   }));
-      // };
 
       const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -178,6 +181,16 @@ const EditRecipe = () => {
             ...prevFormData,
             protein: newProtein
           }));
+        }
+        else if (name=='estimatedCost') {
+        // Validate the input against a decimal number pattern
+        const decimalNumberPattern = /^\d+(\.\d{0,2})?$/;
+        if (decimalNumberPattern.test(value) || value === '') {
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            [name]: value,
+          }));
+        }
         }
         else {
           // test
@@ -253,6 +266,7 @@ const EditRecipe = () => {
                       value='2001'
                       checked={recipe.allergens.some((allergen) => allergen.allergenId === 2001)}
                       onChange={handleCheckboxChangeAlrg}
+                      disabled={recipe.allergens.some((allergen) => allergen.allergenId === 2008)}
                     />
                     Eggs
                     <br />
@@ -265,6 +279,7 @@ const EditRecipe = () => {
                       value='2002'
                       checked={recipe.allergens.some((allergen) => allergen.allergenId === 2002)}
                       onChange={handleCheckboxChangeAlrg}
+                      disabled={recipe.allergens.some((allergen) => allergen.allergenId === 2008)}
                     />
                     Peanuts
                     <br />
@@ -277,6 +292,7 @@ const EditRecipe = () => {
                       value='2003'
                       checked={recipe.allergens.some((allergen) => allergen.allergenId === 2003)}
                       onChange={handleCheckboxChangeAlrg}
+                      disabled={recipe.allergens.some((allergen) => allergen.allergenId === 2008)}
                     />
                     Tree Nuts
                     <br />
@@ -289,6 +305,7 @@ const EditRecipe = () => {
                       value='2004'
                       checked={recipe.allergens.some((allergen) => allergen.allergenId === 2004)}
                       onChange={handleCheckboxChangeAlrg}
+                      disabled={recipe.allergens.some((allergen) => allergen.allergenId === 2008)}
                     />
                     Soy
                     <br />
@@ -301,6 +318,7 @@ const EditRecipe = () => {
                       value='2005'
                       checked={recipe.allergens.some((allergen) => allergen.allergenId === 2005)}
                       onChange={handleCheckboxChangeAlrg}
+                      disabled={recipe.allergens.some((allergen) => allergen.allergenId === 2008)}
                     />
                     Wheat
                     <br />
@@ -313,6 +331,7 @@ const EditRecipe = () => {
                       value='2006'
                       checked={recipe.allergens.some((allergen) => allergen.allergenId === 2006)}
                       onChange={handleCheckboxChangeAlrg}
+                      disabled={recipe.allergens.some((allergen) => allergen.allergenId === 2008)}
                     />
                     Shellfish
                     <br />
@@ -325,6 +344,7 @@ const EditRecipe = () => {
                       value='2007'
                       checked={recipe.allergens.some((allergen) => allergen.allergenId === 2007)}
                       onChange={handleCheckboxChangeAlrg}
+                      disabled={recipe.allergens.some((allergen) => allergen.allergenId === 2008)}
                     />
                     Fish
                     <br /> 
@@ -403,9 +423,12 @@ const EditRecipe = () => {
                     Based off the list of Ingredients on the Kroger website, What is the total estimated cost for this recipe with two decimals? Please DO NOT include dollar signs or any other characters.<br/>
                         Example 1: 20.50<br/>
                         Example 2: 10.00
-                    <textarea  name='estimatedCost'
+                    <textarea  
+                    name='estimatedCost'
                     value={recipe.estimatedCost}
-                    onChange={handleInputChange}></textarea>      
+                    onChange={handleInputChange}
+                    required
+                    pattern="\d+(\.\d{0,2})?"></textarea>      
                 </label>
 
                 <label htmlFor="multipleSelect">Appliance Selection:</label>
@@ -416,7 +439,8 @@ const EditRecipe = () => {
                         value='3000'
                         name='Air Fryer'
                         checked={recipe.appliances.some((appliance)=> appliance.applianceId === 3000)}
-                        onChange={handleCheckboxChangeApli}></input> Air Fryer <br />
+                        onChange={handleCheckboxChangeApli}
+                        disabled={recipe.appliances.some((appliance) => appliance.applianceId === 3007)}></input> Air Fryer <br />
                 </label>
                 <label className='sub-label'>
                     <input 
@@ -425,7 +449,8 @@ const EditRecipe = () => {
                         value='3001' 
                         name='Crockpot'
                         checked={recipe.appliances.some((appliance)=>appliance.applianceId === 3001)}
-                        onChange={handleCheckboxChangeApli}></input> Crockpot <br />
+                        onChange={handleCheckboxChangeApli}
+                        disabled={recipe.appliances.some((appliance) => appliance.applianceId === 3007)}></input> Crockpot <br />
                 </label>
                 <label className='sub-label'>
                     <input 
@@ -434,7 +459,8 @@ const EditRecipe = () => {
                         value='3002' 
                         name='Stove'
                         checked={recipe.appliances.some((appliance)=>appliance.applianceId === 3002)}
-                        onChange={handleCheckboxChangeApli}></input> Stove <br />
+                        onChange={handleCheckboxChangeApli}
+                        disabled={recipe.appliances.some((appliance) => appliance.applianceId === 3007)}></input> Stove <br />
                 </label>
                 <label className='sub-label'>
                     <input 
@@ -443,7 +469,8 @@ const EditRecipe = () => {
                         value='3003' 
                         name='Oven'
                         checked={recipe.appliances.some((appliance)=>appliance.applianceId === 3003)}
-                        onChange={handleCheckboxChangeApli}></input> Oven <br />
+                        onChange={handleCheckboxChangeApli}
+                        disabled={recipe.appliances.some((appliance) => appliance.applianceId === 3007)}></input> Oven <br />
                 </label>
                 <label className='sub-label'>
                     <input 
@@ -452,7 +479,8 @@ const EditRecipe = () => {
                         value='3004'
                         name='Microwave'
                         checked={recipe.appliances.some((appliance)=>appliance.applianceId === 3004)}
-                        onChange={handleCheckboxChangeApli}></input> Microwave <br />
+                        onChange={handleCheckboxChangeApli}
+                        disabled={recipe.appliances.some((appliance) => appliance.applianceId === 3007)}></input> Microwave <br />
                 </label>
                 <label className='sub-label'>
                     <input 
@@ -461,7 +489,8 @@ const EditRecipe = () => {
                         value='3005'
                         name='Blender'
                         checked={recipe.appliances.some((appliance)=>appliance.applianceId === 3005)}
-                        onChange={handleCheckboxChangeApli}></input> Blender <br />
+                        onChange={handleCheckboxChangeApli}
+                        disabled={recipe.appliances.some((appliance) => appliance.applianceId === 3007)}></input> Blender <br />
                 </label>
                 <label className='sub-label'>
                     <input 
@@ -470,7 +499,8 @@ const EditRecipe = () => {
                         value='3006' 
                         name='Instant Pot'
                         checked={recipe.appliances.some((appliance)=>appliance.applianceId === 3006)}
-                        onChange={handleCheckboxChangeApli}></input> Instant Pot <br />
+                        onChange={handleCheckboxChangeApli}
+                        disabled={recipe.appliances.some((appliance) => appliance.applianceId === 3007)}></input> Instant Pot <br />
                 </label>
                 <label className='sub-label'>
                     <input 
