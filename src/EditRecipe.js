@@ -105,14 +105,25 @@ const EditRecipe = () => {
           // allergenId: value,
           'name': name
         }
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          allergens: checked
-            ? [...prevFormData.allergens, newAllergen]
-            : prevFormData.allergens.filter(
-              (allergen) => allergen.allergenId !== newAllergen.allergenId
-            ),
-        }));
+        setFormData((prevFormData) => {
+          if (value === '2008' && checked) {
+            // If "None" is selected, unselect all other options
+            return {
+                ...prevFormData,
+                allergens: [newAllergen],
+            };
+          }
+          else {
+            return {
+            ...prevFormData,
+            allergens: checked
+              ? [...prevFormData.allergens, newAllergen]
+              : prevFormData.allergens.filter(
+                (allergen) => allergen.allergenId !== newAllergen.allergenId
+              ),
+            }
+          }
+        });
       };
 
       const handleCheckboxChangeApli = (event) => {
@@ -145,7 +156,8 @@ const EditRecipe = () => {
       
         if (name === 'ingredients') {
           // Split the textarea value into an array of lines
-          const ingredientLines = value.split('\n');
+          const sanitizedValue = value.replace(/[^\d\n]+/g, (match) => (match.includes('\n') ? '\n' : ''));
+          const ingredientLines = sanitizedValue.split('\n');
       
           // Create a new array of ingredients using the upcValues from each line
           const newIngredients = ingredientLines.map((line) => ({
@@ -224,8 +236,10 @@ const EditRecipe = () => {
                       id='allergenMilkCheckbox'
                       name='Milk'
                       value='2000'
+                      // checks allergen if this allergen is in the json
                       checked={recipe.allergens.some((allergen) => allergen.allergenId === 2000)}
                       onChange={handleCheckboxChangeAlrg}
+                      disabled={recipe.allergens.some((allergen) => allergen.allergenId === 2008)}
                     />
                     Milk
                     <br />
