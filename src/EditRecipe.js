@@ -202,6 +202,7 @@ const EditRecipe = () => {
             const recipeData = response.data;
             if(response.status==200){
               console.log(JSON.stringify(recipeData))
+              setSubmitted(true); 
             } else {
               console.error('Failed to edit recipe details:', response.statusText)
             }
