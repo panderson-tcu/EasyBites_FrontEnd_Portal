@@ -37,7 +37,7 @@ const AllRecipes = () => {
 
   useEffect(() => {
     fetchAllRecipes();
-  }, [fetchAllRecipes]);
+  }, []);
 
   const handleSearchInputChange = (event) => {
     const query = event.target.value;
