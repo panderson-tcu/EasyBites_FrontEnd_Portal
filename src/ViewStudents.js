@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import './ViewStudents.css';
 import NavBar from './components/NavBar';
 import { Link } from 'react-router-dom';
-import {AuthContext, useAuth} from  './context/AuthProvider';
-import axios from './api/axios';
+import {useAuth} from  './context/AuthProvider';
+import {URL} from './index.js'
 
 const ViewStudents = () => {
   const [students, setStudents] = useState([]);
-  const { auth, setAuth } = useAuth()
+  const { auth } = useAuth()
   console.log("printing auth information")
   console.log(auth.user)
   console.log(auth.roles)
@@ -18,14 +18,13 @@ const ViewStudents = () => {
       Authorization: `Bearer ${auth.accessToken}`,
     },
   };
-  const baseUrl = 'http://localhost:80';
 
   useEffect(() => {
     fetchAllNutritionUsers();
   }, []);
 
   const fetchAllNutritionUsers = () => {
-    fetch(baseUrl + "/nutrition-user", config)
+    fetch(`${URL}/nutrition-user`, config)
       .then(response => response.json())
       .then(data => {
         if (data && Array.isArray(data.data)) {

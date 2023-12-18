@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import './RecipeForm.css';
 import NavBar from './components/NavBar';
-import {AuthContext, useAuth} from  './context/AuthProvider';
+import {useAuth} from  './context/AuthProvider';
 import axios from './api/axios';
+import { URL } from './index.js';
 
 
 const RecipeForm = () => {
-  const URL = 'http://localhost:80';
     const [formData, setFormData] = useState({
         title: '',
         allergens: [],
@@ -21,7 +21,7 @@ const RecipeForm = () => {
       });
 
       const [submitted, setSubmitted] = useState(false);
-      const { auth, setAuth } = useAuth()
+      const { auth } = useAuth()
       console.log("printing auth information")
       console.log(auth.user)
       console.log(auth.roles)
@@ -34,9 +34,9 @@ const RecipeForm = () => {
       };
       const handleSubmit = async (event) => {
         event.preventDefault();
-        axios.post(URL+'/recipes',handleSendData(formData), config)
+        axios.post(`${URL}/recipes`,handleSendData(formData), config)
           .then(response => {
-            if(response.status==200){
+            if(response.status===200){
               console.log('Recipe submitted successfully!');
               setSubmitted(true);
               setFormData({ // Reset the form after submission
@@ -98,19 +98,6 @@ const RecipeForm = () => {
         console.log(formattedData); 
         return formattedData;
       };
-    
-    
-      // const handleCheckboxChangeAlrg = (event) => {
-      //   const { name, checked } = event.target;
-
-      //   if (name == '2008' && checked)
-      //   setFormData((prevFormData) => ({
-      //     ...prevFormData,
-      //     allergens: checked
-      //       ? [...prevFormData.allergens, name]
-      //       : prevFormData.allergens.filter((item) => item !== name),
-      //   }));
-      // };
 
       const handleCheckboxChangeAlrg = (event) => {
         const { name, checked } = event.target;

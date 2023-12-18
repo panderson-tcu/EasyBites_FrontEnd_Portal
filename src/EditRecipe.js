@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './EditRecipe.css';
 import NavBar from './components/NavBar';
-import {AuthContext, useAuth} from  './context/AuthProvider';
+import {useAuth} from  './context/AuthProvider';
 import axios from './api/axios';
+import {URL} from './index.js'
 
 const EditRecipe = () => {
   const { recipeId } = useParams();
-  const URL = 'http://localhost:80';
   const [recipe, setFormData] = useState({
     title: '',
     allergens: [],
@@ -22,7 +22,7 @@ const EditRecipe = () => {
   });
   const [submitted, setSubmitted] = useState(false);
 
-  const { auth, setAuth } = useAuth()
+  const { auth } = useAuth()
   console.log("printing auth information in edit-recipe page")
   console.log(auth.user)
   console.log(auth.roles)
@@ -36,10 +36,10 @@ const EditRecipe = () => {
 
     useEffect(() => {
       const fetchRecipeDetails = async () => {
-        axios.get(URL+`/recipes/${recipeId}`, config)
+        axios.get(`${URL}/recipes/${recipeId}`, config)
           .then(response => {
             const recipeData = response.data;
-            if(response.status==200){
+            if(response.status===200){
               setFormData(recipeData.data)
             } else {
               console.error('Failed to fetch recipe details:', response.statusText);
@@ -87,17 +87,6 @@ const EditRecipe = () => {
       return formattedData;
     };
     
-    
-      // const handleCheckboxChangeAlrg = (event) => {
-      //   const { name, checked } = event.target;
-      //   setFormData((prevFormData) => ({
-      //     ...prevFormData,
-      //     allergens: checked
-      //       ? [...prevFormData.allergens, name]
-      //       : prevFormData.allergens.filter((item) => item !== name),
-      //   }));
-      // };
-
       const handleCheckboxChangeAlrg = (event) => {
         const { name, checked, value } = event.target;
         let newAllergen = {
@@ -182,7 +171,7 @@ const EditRecipe = () => {
             protein: newProtein
           }));
         }
-        else if (name=='estimatedCost') {
+        else if (name==='estimatedCost') {
         // Validate the input against a decimal number pattern
         const decimalNumberPattern = /^\d+(\.\d{0,2})?$/;
         if (decimalNumberPattern.test(value) || value === '') {
@@ -193,13 +182,6 @@ const EditRecipe = () => {
         }
         }
         else {
-          // test
-          // const parsedValue = name === 'protein' ? parseInt(value, 10) : value;
-          // setFormData((prevFormData) => ({
-          //   ...prevFormData,
-          //   [name]: parsedValue,
-          // }));
-
           // For other fields, update the state as usual
           setFormData((prevFormData) => ({
             ...prevFormData,
@@ -210,10 +192,10 @@ const EditRecipe = () => {
 
       const handleSubmit = async (event) => {
         event.preventDefault();
-        axios.put(URL+`/recipes/${recipeId}`,handleSendData(recipe), config)
+        axios.put(`${URL}/recipes/${recipeId}`,handleSendData(recipe), config)
           .then(response => {
             const recipeData = response.data;
-            if(response.status==200){
+            if(response.status===200){
               console.log(JSON.stringify(recipeData))
               setSubmitted(true); 
             } else {

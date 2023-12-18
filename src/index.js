@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { AuthProvider } from './context/AuthProvider';
-// import './index.css';
 import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -39,7 +38,11 @@ setGlobalSubFont('helvetica');
 let URL;
 
 function setGlobalURL() {
-  const URL = 'http://localhost:80'; 
+  URL = 'http://localhost:80';
+  // URL = 'https://easybites-portal.azurewebsites.net/'
+ 
 }
 
 setGlobalURL(); // Call the function to set the global URL
+
+export {URL}
