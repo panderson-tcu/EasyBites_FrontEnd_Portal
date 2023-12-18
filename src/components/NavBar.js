@@ -1,16 +1,12 @@
 import React from 'react';
 import './NavBar.css';
 import SmallLogo from '../images/SmallLogo.png';
-import {AuthContext, useAuth} from  '../context/AuthProvider';
+import {useAuth} from  '../context/AuthProvider';
 
 function NavBar() {
-  const { auth, setAuth } = useAuth()
-  const config = {
-    headers: {
-      Authorization: `Bearer ${auth.accessToken}`,
-    },
-  };
-    const isAdmin = auth && auth.roles === 'admin';
+  const { auth} = useAuth()
+  
+  const isAdmin = auth && auth.roles === 'admin';
 
   return (
         <div className='Container'>

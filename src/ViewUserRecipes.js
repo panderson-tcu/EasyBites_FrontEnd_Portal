@@ -3,7 +3,8 @@ import './UserRecipes.css';
 import { useParams, Link } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import axios from './api/axios';
-import {AuthContext, useAuth} from  './context/AuthProvider';
+import {useAuth} from  './context/AuthProvider';
+import {URL} from './index.js'
 
 
 const AllRecipes = () => {
@@ -11,9 +12,7 @@ const AllRecipes = () => {
   const{nutritionUserId} = useParams();
   const [userName, setUserName] = useState([])
 
-  const URL = '/recipes';
-
-  const { auth, setAuth } = useAuth()
+  const { auth } = useAuth()
   console.log("printing auth information")
   console.log(auth.user)
   console.log(auth.roles)
@@ -33,7 +32,7 @@ const AllRecipes = () => {
   }, []);
 
   const fetchAllRecipes = () => {
-    axios.get(URL+'/nutrition-user/'+nutritionUserId, config)
+    axios.get(`${URL}/recipes/nutrition-user/${nutritionUserId}`, config)
       .then(response => {
         const data = response.data;
         if (data && Array.isArray(data.data)) {
@@ -48,10 +47,10 @@ const AllRecipes = () => {
   };
 
   const fetchNutritionUser = () => {
-    axios.get('/nutrition-user/'+nutritionUserId, config)
+    axios.get(`${URL}/nutrition-user/${nutritionUserId}`, config)
         .then(response => {
             const data = response.data.data;
-            if(response.status==200){
+            if(response.status===200){
                 setUserName(data.firstName + ' ' + data.lastName)
               }
             else {
@@ -72,7 +71,7 @@ const AllRecipes = () => {
           <td>
           <Link to={`/recipe/${recipe.recipeId}`}>{title}</Link>
           </td>
-          <td>{recipe?.status}</td>
+          <td>{status}</td>
         </tr>
       );
     });

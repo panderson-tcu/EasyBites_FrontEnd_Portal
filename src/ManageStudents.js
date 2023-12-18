@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import './ManageStudents.css';
 import NavBar from './components/NavBar';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
-import {AuthContext, useAuth} from  './context/AuthProvider';
-import axios from './api/axios';
+import {useAuth} from  './context/AuthProvider';
+import { URL } from './index.js';
 
 const ManageStudents = () => {
-  const URL = 'http://localhost:80';
   const [userData, setUserData] = useState({
     nutritionUserId: '',
     firstName: '',
@@ -15,7 +14,7 @@ const ManageStudents = () => {
     email: '',
     password: '',
       });
-      const { auth, setAuth } = useAuth()
+      const { auth } = useAuth()
 
 
       const [submitted, setSubmitted] = useState(false);
@@ -23,7 +22,7 @@ const ManageStudents = () => {
       const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-          const response = await fetch('http://localhost:80/nutrition-user', {
+          const response = await fetch(`${URL}/nutrition-user`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

@@ -1,7 +1,7 @@
 // App.js
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import React from 'react';
 import RecipeForm from './RecipeForm.js';
 import AllRecipes from './AllRecipes.js';
 import UserRecipes from './UserRecipes.js';
@@ -19,7 +19,6 @@ const PrivateRoute = ({ element }) => {
 };
 
 const App = () => {
-  const { auth } = useAuth(); // Use useAuth to access authentication state
 
   return (
     <AuthProvider>

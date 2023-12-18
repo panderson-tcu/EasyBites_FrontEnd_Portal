@@ -3,7 +3,7 @@ import './AllRecipes.css';
 import { Link } from 'react-router-dom';
 import axios from './api/axios';
 import NavBar from './components/NavBar';
-import {AuthContext, useAuth} from  './context/AuthProvider';
+import {useAuth} from  './context/AuthProvider';
 
 
 const AllRecipes = () => {
@@ -13,7 +13,7 @@ const AllRecipes = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 15;
   const [searchClicked, setSearchClicked] = useState(false); 
-  const { auth, setAuth } = useAuth()
+  const { auth } = useAuth()
   const config = {
     headers: {
       Authorization: `Bearer ${auth.accessToken}`,
@@ -37,7 +37,7 @@ const AllRecipes = () => {
 
   useEffect(() => {
     fetchAllRecipes();
-  }, []);
+  }, [fetchAllRecipes]);
 
   const handleSearchInputChange = (event) => {
     const query = event.target.value;
@@ -63,7 +63,7 @@ const AllRecipes = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentRecipes = searchQuery ? searchResults.slice(indexOfFirstItem, indexOfLastItem) : recipes.slice(indexOfFirstItem, indexOfLastItem);
+  // const currentRecipes = searchQuery ? searchResults.slice(indexOfFirstItem, indexOfLastItem) : recipes.slice(indexOfFirstItem, indexOfLastItem);
 
 
   const renderTableData = () => {
@@ -76,7 +76,7 @@ const AllRecipes = () => {
           <td>
             <Link to={`/recipe/${recipe.recipeId}`}>{title}</Link>
           </td>
-          <td>{recipe?.status}</td>
+          <td>{status}</td>
           <td>{recipeOwner?.email}</td>
         </tr>
       );

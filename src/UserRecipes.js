@@ -3,15 +3,14 @@ import './UserRecipes.css';
 import { Link } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import axios from './api/axios';
-import {AuthContext, useAuth} from  './context/AuthProvider';
+import {useAuth} from  './context/AuthProvider';
+import {URL} from './index.js'
 
 
 const AllRecipes = () => {
   const [recipes, setRecipes] = useState([]);
 
-  const URL = '/recipes';
-
-  const { auth, setAuth } = useAuth()
+  const { auth } = useAuth()
   console.log("printing auth information")
   console.log(auth.user)
   console.log(auth.roles)
@@ -30,7 +29,7 @@ const AllRecipes = () => {
   }, []);
 
   const fetchAllRecipes = () => {
-    axios.get(URL+'/nutrition-user/'+auth.id, config)
+    axios.get(`${URL}/nutrition-user/${auth.id}`, config)
       .then(response => {
         const data = response.data;
         if (data && Array.isArray(data.data)) {
@@ -52,7 +51,7 @@ const AllRecipes = () => {
           <td>
           <Link to={`/recipe/${recipe.recipeId}`}>{title}</Link>
           </td>
-          <td>{recipe?.status}</td>
+          <td>{status}</td>
         </tr>
       );
     });

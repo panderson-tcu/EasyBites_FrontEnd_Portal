@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './RecipeDetail.css'
 import NavBar from './components/NavBar';
-import {AuthContext, useAuth} from  './context/AuthProvider';
+import {useAuth} from  './context/AuthProvider';
 import axios from './api/axios';
+import {URL} from './index.js';
 
 
 const RecipeDetails = () => {
@@ -21,7 +22,7 @@ const RecipeDetails = () => {
     allergens: [],
   });
 
-  const { auth, setAuth } = useAuth()
+  const { auth } = useAuth()
   console.log("printing auth information")
   console.log(auth.user)
   console.log(auth.roles)
@@ -36,14 +37,14 @@ const RecipeDetails = () => {
   };
 
   const isAdmin = auth && auth.roles === 'admin';
-  const isRecipeOwner = auth && auth.id == recipe?.recipeOwner?.nutritionUserId;
+  const isRecipeOwner = auth && auth.id === recipe?.recipeOwner?.nutritionUserId;
 
   useEffect(() => {
     const fetchRecipeDetails = async () => {
-      axios.get(`http://localhost:80/recipes/${recipeId}`, config)
+      axios.get(`${URL}/recipes/${recipeId}`, config)
         .then(response => {
           const recipeData = response.data;
-          if(response.status==200){
+          if(response.status===200){
             setRecipe(recipeData.data)
           } else {
             console.error('Failed to fetch recipe details:', response.statusText);
@@ -52,32 +53,15 @@ const RecipeDetails = () => {
         .catch(error => {
           console.error('Error fetching recipe details:', error);
         })
-    // const fetchRecipeDetails = async () => {
-    //   try {
-    //     const response = await fetch(`http://localhost:80/recipes/${recipeId}`);
-    //     if (response.ok) {
-    //       const recipeData = await response.json();
-    //       setRecipe(recipeData.data);
-    //     } else {
-    //       console.error('Failed to fetch recipe details');
-    //     }
-    //   } catch (error) {
-    //     console.error('Error fetching recipe details:', error);
-    //   }
     };
 
     fetchRecipeDetails();
   }, [recipeId]);
 
 
-  // const handleEditClick = () => {
-  //   console.log('Edit button clicked');
-  // };
-
-
   const statusApprove = async () => {
     try {
-      const response = await fetch(`http://localhost:80/recipes/approved/${recipeId}`, {
+      const response = await fetch(`${URL}/recipes/approved/${recipeId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -90,7 +74,7 @@ const RecipeDetails = () => {
         console.log('Recipe status updated to Approved');
         setTimeout(async () => {
           try {
-            const updatedResponse = await fetch(`http://localhost:80/recipes/${recipeId}`, {
+            const updatedResponse = await fetch(`${URL}/recipes/${recipeId}`, {
               method: 'GET',
               headers: {
                 'Authorization': `Bearer ${auth.accessToken}`
@@ -116,7 +100,7 @@ const RecipeDetails = () => {
   
   const statusDecline = async () => {
     try {
-      const response = await fetch(`http://localhost:80/recipes/declined/${recipeId}`, {
+      const response = await fetch(`${URL}/recipes/declined/${recipeId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -129,7 +113,7 @@ const RecipeDetails = () => {
         console.log('Recipe status updated to Declined');
         setTimeout(async () => {
           try {
-            const updatedResponse = await fetch(`http://localhost:80/recipes/${recipeId}`, {
+            const updatedResponse = await fetch(`${URL}/recipes/${recipeId}`, {
               method: 'GET',
               headers: {
                 'Authorization': `Bearer ${auth.accessToken}`
@@ -181,7 +165,6 @@ const RecipeDetails = () => {
         <p className='info-header'>Servings: </p> <p className='info-details'> {recipe.servings}</p>
         <p className='info-header'> Status: </p> <p className='info-details'> {recipe.status}</p>
 
-        {/* <Link to="/EditRecipe" onClick={handleEditClick} className='submit'>Edit Recipe</Link> */}
         {(isRecipeOwner || isAdmin) && (
           <Link to={`/recipe/${recipeId}/edit`} className='edit'>Edit Recipe</Link>
         )}
