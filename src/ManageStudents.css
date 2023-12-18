@@ -24,6 +24,29 @@
     flex-direction: column;
   }
   
+  .integer-input {
+    display: flex;
+    flex-direction: column;
+    /* Reset the default styling for number inputs */
+    -moz-appearance: textfield;
+    appearance: textfield;
+    /* Set the width, padding, and border to match a regular text box */
+    width: 500px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    /* Ensure the cursor appears as a text cursor */
+    cursor: text;
+  }
+
+  /* Remove the increment and decrement arrows */
+  .integer-input::-webkit-inner-spin-button,
+  .integer-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+
   label {
     margin-bottom: 5px;
   }
@@ -41,8 +64,7 @@
     background-color: #F7B27D;
     border: none;
     cursor: pointer;
-    width: 150px;
-    font-size: 16px;
+    width: fit-content;
 
   }
   
@@ -56,8 +78,8 @@
   background-color: #9fa186;
   border: none;
   cursor: pointer;
-  max-width: 150px;
-  font-size: 16px;
+  max-width: fit-content;
+  font-size: 20px;
   margin-top: 50px;
   text-align: center;
 }

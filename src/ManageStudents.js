@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './ManageStudents.css';
 import NavBar from './components/NavBar';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import {useAuth} from  './context/AuthProvider';
+import { URL } from './index.js';
 
 const ManageStudents = () => {
   const [userData, setUserData] = useState({
@@ -12,16 +14,20 @@ const ManageStudents = () => {
     email: '',
     password: '',
       });
+      const { auth } = useAuth()
+
 
       const [submitted, setSubmitted] = useState(false);
     
       const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-          const response = await fetch(URL+'/nutrition-user', {
+          const response = await fetch(`${URL}/nutrition-user`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
+              'Authorization': `Bearer ${auth.accessToken}`,
+
             },
             body: JSON.stringify(handleSendData(userData)),
             
@@ -88,10 +94,14 @@ const ManageStudents = () => {
         <div className='form-group'>
             <label htmlFor="nutritionUserId">TCU Student ID:</label>
             <input
-              type="text"
+              type="number"
               name="nutritionUserId"
               value={userData.nutritionUserId}
               onChange={handleChange}
+              required
+              pattern="\d+"  // Use a regular expression to validate integers
+              title="Please enter a valid TCU ID."  // Specify a title for the validation message
+              className="integer-input"  // Apply a custom class for styling
             />
           </div>
         <div className='form-group'>
@@ -101,6 +111,7 @@ const ManageStudents = () => {
               name="firstName"
               value={userData.firstName}
               onChange={handleChange}
+              required
             />
           </div>
           <div className='form-group'>
@@ -110,17 +121,22 @@ const ManageStudents = () => {
               name="lastName"
               value={userData.lastName}
               onChange={handleChange}
+              required
             />
           </div>
-          <label> Admin Level: <br />
-                    <select name='adminLevel'
-                    value={userData.adminLevel}
-                    onChange={handleChange}>
-                        <option value="">Select</option>
-                        <option value="student">Student</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                </label>
+            <label> Admin Level: <br />
+              <select 
+                name='adminLevel'
+                value={userData.adminLevel}
+                onChange={handleChange}
+                required
+              >
+                <option value="" disabled>Select</option>
+                <option value="student">Student</option>
+                <option value="admin">Admin</option>
+              </select>
+            </label>
+   
           <div className='form-group'>
             <label htmlFor="email">Email:</label>
             <input
@@ -128,6 +144,7 @@ const ManageStudents = () => {
               name="email"
               value={userData.email}
               onChange={handleChange}
+              required
             />
           </div>
           <div className='form-group'>
@@ -137,6 +154,7 @@ const ManageStudents = () => {
               name="password"
               value={userData.password}
               onChange={handleChange}
+              required
             />
           </div>
           <button type="submit" className='button'>Add Student</button>
@@ -145,7 +163,6 @@ const ManageStudents = () => {
         )}   
           <Link to="/ViewStudents" className='view-all-button'>View All Students</Link>
         </form>
-        
       </div>
     </div>
     )

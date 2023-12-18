@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './UserRecipes.css';
-import { Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import axios from './api/axios';
 import {useAuth} from  './context/AuthProvider';
@@ -9,6 +9,8 @@ import {URL} from './index.js'
 
 const AllRecipes = () => {
   const [recipes, setRecipes] = useState([]);
+  const{nutritionUserId} = useParams();
+  const [userName, setUserName] = useState([])
 
   const { auth } = useAuth()
   console.log("printing auth information")
@@ -26,10 +28,11 @@ const AllRecipes = () => {
 
   useEffect(() => {
     fetchAllRecipes();
+    fetchNutritionUser();
   }, []);
 
   const fetchAllRecipes = () => {
-    axios.get(`${URL}/nutrition-user/${auth.id}`, config)
+    axios.get(`${URL}/recipes/nutrition-user/${nutritionUserId}`, config)
       .then(response => {
         const data = response.data;
         if (data && Array.isArray(data.data)) {
@@ -42,6 +45,23 @@ const AllRecipes = () => {
         console.error('Error fetching data:', error);
       });
   };
+
+  const fetchNutritionUser = () => {
+    axios.get(`${URL}/nutrition-user/${nutritionUserId}`, config)
+        .then(response => {
+            const data = response.data.data;
+            if(response.status===200){
+                setUserName(data.firstName + ' ' + data.lastName)
+              }
+            else {
+            console.error('Data received does not contain an array:', data);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+
+  }
 
   const renderTableData = () => {
     return recipes.map((recipe, index) => {
@@ -73,7 +93,7 @@ const AllRecipes = () => {
     <div className='user-container'>
       <NavBar />
       <div className='container'>
-        <h1 id='title'>Your Recipe Table</h1>
+        <h1 id='title'>{userName}'s User Information</h1>
         <table id='recipes'>
           <thead>{renderTableHeader()}</thead>
           <tbody>{renderTableData()}</tbody>

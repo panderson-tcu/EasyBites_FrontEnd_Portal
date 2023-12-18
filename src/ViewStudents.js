@@ -2,15 +2,14 @@ import React, { useState, useEffect } from 'react';
 import './ViewStudents.css';
 import NavBar from './components/NavBar';
 import { Link } from 'react-router-dom';
-import {AuthContext, useAuth} from  './context/AuthProvider';
-
+import {useAuth} from  './context/AuthProvider';
+import {URL} from './index.js'
 
 const ViewStudents = () => {
   const [students, setStudents] = useState([]);
-  const { auth, setAuth } = useAuth()
+  const { auth } = useAuth()
   console.log("printing auth information")
   console.log(auth.user)
-  console.log(auth.pwd)
   console.log(auth.roles)
   console.log(auth.accessToken)
 
@@ -19,14 +18,13 @@ const ViewStudents = () => {
       Authorization: `Bearer ${auth.accessToken}`,
     },
   };
-  const baseUrl = 'http://localhost:80';
 
   useEffect(() => {
     fetchAllNutritionUsers();
   }, []);
 
   const fetchAllNutritionUsers = () => {
-    fetch(baseUrl + "/nutrition-user", config)
+    fetch(`${URL}/nutrition-user`, config)
       .then(response => response.json())
       .then(data => {
         if (data && Array.isArray(data.data)) {
@@ -42,12 +40,19 @@ const ViewStudents = () => {
     return students.map((student) => {
       const { nutritionUserId, firstName, lastName, email, adminLevel } = student;
       return (
-        <tr key={nutritionUserId}>
-          <td>{firstName}</td>
-          <td>{lastName}</td>
-          <td>{email}</td>
-          <td>{adminLevel}</td>
-        </tr>
+          <tr key={nutritionUserId}>
+              <td>
+              <Link to={`/student/${nutritionUserId}`}>{firstName}</Link>
+              </td>
+              <td>
+              <Link to={`/student/${nutritionUserId}`}>{lastName}</Link></td>
+              <td>
+              <Link to={`/student/${nutritionUserId}`}>{email}</Link>
+              </td>
+              <td>
+                <Link to={`/student/${nutritionUserId}`}>{adminLevel}</Link>
+              </td>
+          </tr>
       );
     });
   };
@@ -71,7 +76,7 @@ const ViewStudents = () => {
       <NavBar />
       <div className='container'>
         <h1 id='title'>All Students </h1>
-        <table id='students'>
+        <table className='studentTable' id='students'>
           <thead>{renderTableHeader()}</thead>
           <tbody>{renderTableData()}</tbody>
         </table>
