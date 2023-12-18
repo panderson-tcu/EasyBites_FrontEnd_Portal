@@ -29,7 +29,7 @@ const AllRecipes = () => {
   }, []);
 
   const fetchAllRecipes = () => {
-    axios.get(`${URL}/nutrition-user/${auth.id}`, config)
+    axios.get(`${URL}/recipes/nutrition-user/${auth.id}`, config)
       .then(response => {
         const data = response.data;
         if (data && Array.isArray(data.data)) {
