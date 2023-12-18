@@ -38,8 +38,8 @@ setGlobalSubFont('helvetica');
 let URL;
 
 function setGlobalURL() {
-  // URL = 'http://localhost:80';
-  URL = 'https://easybites-portal.azurewebsites.net/'
+  URL = 'http://localhost:80';
+  // URL = 'https://easybites-portal.azurewebsites.net/'
  
 }
 
