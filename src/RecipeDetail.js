@@ -173,7 +173,7 @@ const RecipeDetails = () => {
           <label className='change'>Change Status:</label>
         )}
         {isAdmin && (
-          <div class="button-container">
+          <div className="button-container">
             <button onClick={statusApprove} className='approved'>Approve</button> 
             <button onClick={statusDecline} className='declined'>Decline</button>
           </div>
