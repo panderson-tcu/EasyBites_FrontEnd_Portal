@@ -4,7 +4,6 @@ import AuthContext from './context/AuthProvider';
 import axios from './api/axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import FullLogo from './images/FullLogo.png';
-import { AuthProvider } from './context/AuthProvider';
 
 
 const LOGIN_URL = '/nutrition-user/login';
@@ -68,12 +67,17 @@ const Login = () => {
         errRef.current.focus();
     }
   }
+
+  useEffect(() => {
+    if (success) {
+      navigate('/AllRecipes');
+    }
+  }, [success, navigate]);
   
   return (
-    <AuthProvider>
     <>
       {success ? (
-        navigate('/AllRecipes')
+        null
       ) : (
       <div className="login-container">
         <img src={FullLogo} alt="FullLogo" style={{ width: '200px', height: '200px' }}/>
@@ -110,7 +114,6 @@ const Login = () => {
       </div>
         )}
     </>   
-    </AuthProvider> 
   )
 }
 
