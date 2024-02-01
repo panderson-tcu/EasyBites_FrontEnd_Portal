@@ -353,6 +353,7 @@ const EditRecipe = () => {
                         <option value="1000" name="Chicken">Chicken</option>
                         <option value="1001" name="Beef">Beef</option>
                         <option value="1002" name="Pork">Pork</option>
+                        <option value="1006" name="Turkey">Turkey</option>
                         <option value="1004" name="Seafood">Seafood</option>
                         <option value="1003" name="Tofu">Tofu</option>
                         <option value="1005" name="None">None</option>
